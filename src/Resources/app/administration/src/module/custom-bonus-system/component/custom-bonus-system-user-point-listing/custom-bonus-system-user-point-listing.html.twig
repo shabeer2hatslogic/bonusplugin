@@ -1,0 +1,53 @@
+{% block sw_data_grid_slot_actions %}
+    <slot name="detail-action" v-bind="{ item }">
+        <sw-context-menu-item class="sw-entity-listing__context-menu-edit-action"
+                              v-if="detailRoute"
+                              :disabled="!allowEdit && !allowView"
+                              :routerLink="{ name: detailRoute, params: { id: item.id } }">
+            {{ $tc('custom-bonus-system.list.userPoint.viewDetails') }}
+        </sw-context-menu-item>
+    </slot>
+    <slot name="point-booking-action" v-bind="{ item, displayPointBookingModal }">
+        <sw-context-menu-item class="sw-entity-listing__context-menu-point-action"
+                              @click="displayPointBookingModal(item.id, item.salesChannelId)"
+        >
+            {{ $tc('custom-bonus-system.list.userPoint.bookLink') }}
+        </sw-context-menu-item>
+    </slot>
+{% endblock %}
+
+{% block sw_data_grid_slot_action_modals %}
+    {% parent %}
+    <sw-modal v-if="pointBookingId === item.id"
+              @modal-close="closePointBookingModal"
+              :title="$tc('custom-bonus-system.list.userPoint.modal.title')"
+              variant="small">
+        <div v-if="bookingFormError" class="point-booking-form-error">
+            <p>{{ $tc('custom-bonus-system.list.userPoint.modal.formError') }}</p>
+        </div>
+
+        <p class="sw-data-grid__confirm-bulk-delete-text">
+            {{ $tc('custom-bonus-system.list.userPoint.modal.bookReason') }}
+            <sw-text-field :copyable="false" :copyableTooltip="false" v-model="pointBookingReason">
+            </sw-text-field>
+            {{ $tc('custom-bonus-system.list.userPoint.modal.bookPoints') }}
+            <sw-number-field numberType="int" :step="1" :min="null" :max="null" :value="null" :digits="0" v-model="pointBookingPoints">
+            </sw-number-field>
+        </p>
+
+        <template #modal-footer>
+            <slot name="point-booking-modal-cancel">
+                <sw-button @click="closePointBookingModal" size="small">
+                    {{ $tc('global.default.cancel') }}
+                </sw-button>
+            </slot>
+
+            <slot name="point-booking-modal-submit">
+                <sw-button @click="bookPoints" variant="primary" size="small">
+                    {{ $tc('custom-bonus-system.list.userPoint.modal.bookSubmit') }}
+                </sw-button>
+            </slot>
+        </template>
+    </sw-modal>
+{% endblock %}
+

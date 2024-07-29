@@ -1,0 +1,11 @@
+{% block sw_condition_value_content %}
+    <div class="sw-condition-billing-customer-number sw-condition__condition-value">
+        {% block sw_condition_billing_customer_number_field_numbers %}
+            <sw-tagged-field
+                    :label="$tc('custom-bonus-system.detail.main.condition.cardTitleConditionRule.labelConditionRuleCustomerNumber')"
+                    size="medium"
+                    v-model="customerNumbers">
+            </sw-tagged-field>
+        {% endblock %}
+    </div>
+{% endblock %}

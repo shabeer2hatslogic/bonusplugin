@@ -1,0 +1,230 @@
+{% block custom_bonus_system_customer_detail %}
+    <sw-page class="custom-bonus-system-customer-detail">
+
+        {% block custom_bonus_system_customer_detail_header %}
+            <template #smart-bar-header>
+                <h2>{{ placeholder(bonus, 'name', $tc('custom-bonus-system.detail.main.customer.textHeadline')) }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block custom_bonus_system_customer_detail_actions %}
+            <template #smart-bar-actions>
+
+                {% block custom_bonus_system_customer_detail_actions_abort %}
+                    <sw-button :disabled="isLoading" v-tooltip.bottom="tooltipCancel" @click="onCancel">
+                        {{ $tc('custom-bonus-system.detail.main.customer.buttonCancel') }}
+                    </sw-button>
+                {% endblock %}
+
+                {# % block custom_bonus_system_customer_detail_actions_save %}
+                    <sw-button-process
+                            class="custom-bonus-system-customer-detail__save-action"
+                            :isLoading="isLoading"
+                            v-model="isSaveSuccessful"
+                            :disabled="isLoading"
+                            variant="primary"
+                            v-tooltip.bottom="tooltipSave"
+                            @click.prevent="onSave">
+                        {{ $tc('custom-bonus-system.detail.main.customer.buttonSave') }}
+                    </sw-button-process>
+                {% endblock %#}
+
+            </template>
+        {% endblock %}
+
+        {% block custom_bonus_system_customer_detail_content %}
+            <sw-card-view slot="content">
+                {% block custom_bonus_system_list_content %}
+                    <div class="sw-product-list__content">
+                        {% block custom_bonus_system_component_navigation %}
+                            <sw-tabs class="custom-bonus-system-detail-page__tabs">
+                                {% block custom_bonus_system_content_tabs_index %}
+                                    <sw-tabs-item :route="{ name: 'custom.bonus.system.index'}"
+                                                  :title="$tc('custom-bonus-system.general.bonusDashboardMenuItem')"
+                                    >
+                                        {{ $tc('custom-bonus-system.general.bonusDashboardMenuItem') }}
+                                    </sw-tabs-item>
+                                {% endblock %}
+
+                                {% block custom_bonus_system_content_tabs_booking %}
+                                    <sw-tabs-item :route="{ name: 'custom.bonus.system.booking'}"
+                                                  :title="$tc('custom-bonus-system.general.bonusOrderMenuItem')"
+                                    >
+                                        {{ $tc('custom-bonus-system.general.bonusOrderMenuItem') }}
+                                    </sw-tabs-item>
+                                {% endblock %}
+
+                                {% block custom_bonus_system_content_tabs_customer %}
+                                    <sw-tabs-item :route="{ name: 'custom.bonus.system.customer'}"
+                                                  :title="$tc('custom-bonus-system.general.customerMenuItem')"
+                                                  class="router-link-active sw-tabs-item--active"
+                                    >
+                                        {{ $tc('custom-bonus-system.general.customerMenuItem') }}
+                                    </sw-tabs-item>
+                                {% endblock %}
+
+                                {% block custom_bonus_system_detail_content_tabs_condition %}
+                                    <sw-tabs-item :route="{ name: 'custom.bonus.system.condition'}"
+                                                  :title="$tc('custom-bonus-system.general.conditionMenuItem')"
+                                    >
+                                        {{ $tc('custom-bonus-system.general.conditionMenuItem') }}
+                                    </sw-tabs-item>
+                                {% endblock %}
+
+                                {% block custom_bonus_system_detail_content_tabs_bonus_product %}
+                                    <sw-tabs-item :route="{ name: 'custom.bonus.system.bonusproduct'}"
+                                                  :title="$tc('custom-bonus-system.general.bonusProductMenuItem')"
+                                    >
+                                        {{ $tc('custom-bonus-system.general.bonusProductMenuItem') }}
+                                    </sw-tabs-item>
+                                {% endblock %}
+                            </sw-tabs>
+                        {% endblock %}
+
+                        {% block custom_bonus_system_detail_base_info_card %}
+                            <custom-bonus-system-customer-detail-card
+                                :customer="customer"
+                                :isLoading="isLoading"
+                                @open-book-points-modal-event="displayPointBookingModal">
+                                {% block custom_bonus_system_detail_base_info_metadata %}
+                                    <custom-bonus-system-customer-detail-info
+                                            :customer="customer"
+                                            :isLoading="isLoading">
+                                    </custom-bonus-system-customer-detail-info>
+                                {% endblock %}
+                            </custom-bonus-system-customer-detail-card>
+                        {% endblock %}
+
+                        {% block custom_bonus_system_list_grid %}
+                            <div class="custom-bonus-system-customer-detail__booking-list-table">
+                                <sw-card :isLoading="isLoading">
+                                    <custom-bonus-system-booking-list ref="customBonusSystemGrid"
+                                                                     v-if="bonus"
+                                                                     class="sw-product-list-grid"
+                                                                     :full-page="false"
+                                                                     :items="bonus"
+                                                                     :columns="columns"
+                                                                     :repository="repository"
+                                                                     :showSelection="true"
+                                                                     :showActions="false"
+                                                                     :allowDelete="false"
+                                                                     :isLoading="isLoading"
+                                    >
+                                        {% block custom_bonus_system_list_grid_columns %}
+                                            {% block custom_bonus_system_list_grid_columns_order %}
+                                                <template slot="column-order" slot-scope="{ item }">
+                                                    {{ item.order.orderNumber }}
+                                                </template>
+                                            {% endblock %}
+                                            {% block custom_bonus_system_list_grid_columns_order_state %}
+                                                <template #column-stateMachineState.name="{ item }">
+                                                    <sw-label :variant="getVariantFromOrderState(item)" appearance="pill">
+                                                        {{ item.order.stateMachineState.translated.name }}
+                                                    </sw-label>
+                                                </template>
+                                            {% endblock %}
+                                            {% block custom_bonus_system_list_grid_columns_points %}
+                                                <template slot="column-points" slot-scope="{ item }">
+                                                    {{ item.points }}
+                                                </template>
+                                            {% endblock %}
+                                            {% block custom_bonus_system_list_grid_columns_description %}
+                                                <template slot="column-description" slot-scope="{ item }">
+                                                    <span v-if="item.order">
+                                                        {{ $tc('custom-bonus-system.detail.main.customer.bookingList.order') }}
+                                                    </span>
+                                                    <span v-else>
+                                                        {{ item.description }}
+                                                    </span>
+                                                </template>
+                                            {% endblock %}
+                                            {% block custom_bonus_system_list_grid_columns_approved %}
+                                                <template slot="column-approved" slot-scope="{ item }">
+                                                    {{ item.approved }}
+                                                </template>
+                                            {% endblock %}
+                                            {% block custom_bonus_system_list_grid_columns_created_at %}
+                                                <template #column-createdAt="{ item }">
+                                                    {{ item.createdAt | date({hour: '2-digit', minute: '2-digit'}) }}
+                                                </template>
+                                            {% endblock %}
+                                            {% block custom_bonus_system_list_grid_columns_saleschannel_name %}
+                                                <template slot="column-salesChannel.name" slot-scope="{ item }">
+                                                    {{ item.salesChannel.translated.name }}
+                                                </template>
+                                            {% endblock %}
+                                            {# {% block custom_bonus_system_list_grid_columns_customer_name %}
+                                        <template slot="column-customer.firstName" slot-scope="{ item }">
+                                            {{ item.customer.firstName }} {{ item.customer.lastName }}
+                                        </template>
+                                    {% endblock %}#}
+                                        {% endblock %}
+                                    </custom-bonus-system-booking-list>
+                                </sw-card>
+                            </div>
+                        {% endblock %}
+
+                        {% block custom_bonus_system_list_empty_state %}
+                            <sw-empty-state v-if="!isLoading && !total" :title="$tc('custom-bonus-system.list.booking.messageEmpty')"></sw-empty-state>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+                {% block custom_bonus_system_customer_detail_book_points_modal %}
+                    <sw-modal v-if="showModal"
+                            @modal-close="closePointBookingModal"
+                            :title="$tc('custom-bonus-system.list.userPoint.modal.title')"
+                            variant="small">
+                        <div v-if="bookingFormError" class="point-booking-form-error">
+                            <p>{{ $tc('custom-bonus-system.list.userPoint.modal.formError') }}</p>
+                        </div>
+
+                        <p class="sw-data-grid__confirm-bulk-delete-text">
+                            {{ $tc('custom-bonus-system.list.userPoint.modal.bookReason') }}
+                            <sw-text-field :copyable="false" :copyableTooltip="false" v-model="bookingReason"></sw-text-field>
+                            {{ $tc('custom-bonus-system.list.userPoint.modal.bookPoints') }}
+                            <sw-number-field numberType="int" :step="1" :min="null" :max="null" :value="null" :digits="0" v-model="bookingPoints"></sw-number-field>
+                        </p>
+
+                        <template #modal-footer>
+                            <slot name="point-booking-modal-cancel">
+                                <sw-button @click="closePointBookingModal" size="small">
+                                    {{ $tc('global.default.cancel') }}
+                                </sw-button>
+                            </slot>
+
+                            <slot name="point-booking-modal-submit">
+                                <sw-button @click="updateCustomerPoints" variant="primary" size="small">
+                                    {{ $tc('custom-bonus-system.list.userPoint.modal.bookSubmit') }}
+                                </sw-button>
+                            </slot>
+                        </template>
+                    </sw-modal>
+                {% endblock %}
+            </sw-card-view>
+        {% endblock %}
+        {% block custom_bonus_system_list_sidebar %}
+            <template #sidebar>
+                <sw-sidebar class="sw-order-list__sidebar">
+                    {% block custom_bonus_system_list_sidebar_refresh %}
+                        <sw-sidebar-item
+                                icon="regular-undo"
+                                :title="$tc('custom-bonus-system.list.titleSidebarItemRefresh')"
+                                @click="onRefresh">
+                        </sw-sidebar-item>
+                    {% endblock %}
+
+                    {% block custom_bonus_system_list_sidebar_filter %}
+                        <sw-sidebar-filter-panel
+                                entity="custom_bonus_system_booking"
+                                :storeKey="storeKey"
+                                :filters="listFilters"
+                                :defaults="defaultFilters"
+                                :activeFilterNumber="activeFilterNumber"
+                                @criteria-changed="updateCriteria">
+                        </sw-sidebar-filter-panel>
+                    {% endblock %}
+                </sw-sidebar>
+            </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

@@ -1,0 +1,54 @@
+{
+    "custom-bonus-system": {
+        "pointIcon": "⚡",
+        "sidebar": {
+            "index_link": "Points account",
+            "bonus_products_link": "Bonus products",
+            "you_have": "You have",
+            "points": "bonus points"
+        },
+        "account": {
+            "bonusTitle":  "Your bonus point history",
+            "bonusWelcome":  "Store bonus points for every order and use it to save money for later orders.",
+            "bonusInfoEmpty": "At the moment you have no bonus points. If you did a order recently, it needs to be confirmed before you get the bonus points",
+            "bonusList": {
+                "headDateTitle":  "Date",
+                "headPointsTitle":  "Bonus points",
+                "headReasonTitle":  "Reason",
+                "order": "Order",
+                "notApproved": "(not approved)",
+                "expiryBooking": "Expired points"
+            },
+            "bonusExpireNextMessage": "Use your bonus points for an order now. %points% bonus points will be expire in %expiryDays% days.",
+            "pointsAccount": {
+                "pointsExpiration": {
+                    "notification": {
+                        "label": "Points expiration e-mail notification",
+                        "checkboxLabel": "Yes, I would like to subscribe to the points expiration notification.",
+                        "message": "Your points expiration notification subscribe status has been saved."
+                    }
+                }
+            }
+        },
+        "checkout": {
+            "getPointsText": "You get %points% bonus points for this order",
+            "redeemPointsText": "%points% bonus points will be transformed to a voucher",
+            "wantToRedeemBonusProductPointsText": "%points% will be used for bonus products.",
+            "youHaveText": "You have %points% bonus points",
+            "points": "bonus points",
+            "redeemPointsAction": "Redeem points: ",
+            "summaryGetPoints": "Credit points",
+            "summaryPointsRedeemed": "Points redeemed",
+            "pointCartItemText": "Discount from %points% bonus points",
+            "registerGuestHint": "For this order you would get <strong>%points%</strong> bonus points. Do you want to register a free account?",
+            "updateRedeemPoints" : "Redeem points"
+        },
+        "productDetails": {
+            "getPointsText": "You get %points% bonus points for this order",
+            "getPointsCompactText": "Ensure %points% bonus points",
+            "loginToBuyWithPoints": "This product can also be purchased with points. Please log in",
+            "loginToBuyWithPointsOnly": "This product can only be purchased with points. Please log in",
+            "buyWithNumberPoints": "Add for every %points% bonus points to the shopping cart"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
+{% set customBonusSystem = page.extensions.customBonusSystem %}
+
+{% block base_body_script %}
+    {% if customBonusSystem.useBonusSystem and not customBonusSystem.disallowRedeemPoints and page.customBonusSystemPoints.has > 0 and page.cart.price.totalPrice > 0 %}
+        <script type="text/javascript" src="{{ asset('bundles/custombonussystem/static/js/vendors/noUiSlider/nouislider.js') }}"></script>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+{% block page_checkout_confirm %}
+    {{ parent() }}
+    {% block page_checkout_container_bonus1_get_points %}
+        {% if customBonusSystem.useBonusSystem and page.customBonusSystemPoints.get > 0 %}
+            {% sw_include '@Storefront/storefront/component/bonus/checkout/get-points.html.twig' with {
+                'customBonusSystemPoints': page.customBonusSystemPoints.get
+            } %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+{
+    "global": {
+        "businessEvents": {
+            "bonus_system_customer_points_changed": "Bonus Punkte verändert"
+        }
+    },
+    "custom-bonus-system": {
+        "flow-builder": {
+            "change-points": {
+                "title-change-points": "Punktestand ändern",
+                "description": "Punktestand ändern",
+                "label-description": "Grund",
+                "label-points": "Punkte",
+                "button-save-action": "Speichern"
+            }
+        }
+    },
+    "swag-migration": {
+        "index": {
+            "selectDataCard": {
+                "entities": {
+                    "custom_bonus_system_user_point": "Bonuspunkte:"
+                }
+            }
+        }
+    }
+}

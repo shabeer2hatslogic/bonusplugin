@@ -1,0 +1,15 @@
+{% block layout_header_actions_bonus_menu_container %}
+<div class="bonus-system-points-header-container">
+    {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+    <span class="bonus-text">
+        {% block layout_header_actions_bonus_menu_bonus_text %}
+            {% block layout_header_actions_bonus_menu_bonus_text_without_toggle %}
+                <a class="nav-link without-dropdown-toggle" href="{{ path('frontend.CustomBonusSystem.index') }}" rel="nofollow">
+                    {{ customBonusSystemPoints }}
+                </a>
+            {% endblock %}
+        {% endblock %}
+    </span>
+    <span class="clearfix"></span>
+</div>
+{% endblock %}

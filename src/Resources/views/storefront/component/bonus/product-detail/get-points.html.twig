@@ -1,0 +1,13 @@
+{% if customBonusSystemPoints %}
+    <div class="bonus-system-get-points-container{{ (bonusTeaserType == 'compact') ? ' bonus-teaser-compact' }}">
+        {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+        <div class="bonus-text">
+            {% if bonusTeaserType == 'compact' %}
+                {{ "custom-bonus-system.productDetails.getPointsCompactText"|trans({'%points%': customBonusSystemPoints})|raw }}
+            {% else %}
+                {{ "custom-bonus-system.productDetails.getPointsText"|trans({'%points%': customBonusSystemPoints})|raw }}
+            {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endif %}

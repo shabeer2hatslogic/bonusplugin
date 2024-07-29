@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>General Properties</title>
+        <title lang="de-DE">Allgemeine Einstellungen</title>
+        <input-field type="bool">
+            <name>useBonusSystem</name>
+            <label>Activate Bonus System</label>
+            <label lang="de-DE">Bonus System aktivieren</label>
+            <helpText>Activates the bonus system for the respective sales channel</helpText>
+            <helpText lang="de-DE">Aktiviert das Bonus System für den jeweiligen Saleschannel</helpText>
+        </input-field>
+        <input-field type="bool">
+            <name>showPointsInHeader</name>
+            <label>Show points balance in header</label>
+            <label lang="de-DE">Bonus Punkte im Kopfbereich anzeigen</label>
+            <helpText>After the customer logs in, shows the current bonus points status in the header of the shop next to the account icon. If option is disabled, point sum and link is shown in account menu.</helpText>
+            <helpText lang="de-DE">Zeigt nach dem Login des Kunden den aktuellen Bonus Punkte Stand im Header des Shops neben dem Account Icon an. Ist die Option nicht gesetzt, dann wird der Stand und Link im Account Menü angezeigt.</helpText>
+        </input-field>
+        <input-field type="bool">
+            <name>showPointsInInvoice</name>
+            <label>Show points balance in invoice</label>
+            <defaultValue>false</defaultValue>
+            <label lang="de-DE">Bonus Punkte auf der Rechnung anzeigen.</label>
+            <helpText>If activated used and received bonus points will be shown on the invoice.</helpText>
+            <helpText lang="de-DE">Wenn aktiviert, dann werden eingesetzte und erhaltene Bonuspunkte auf der Rechnung angezeigt.</helpText>
+        </input-field>
+        <component name="sw-entity-multi-id-select">
+            <name>disallowCustomerGroups</name>
+            <entity>customer_group</entity>
+            <label>Disallow customer group</label>
+            <label lang="de-DE">Kundengruppe verbieten</label>
+            <helpText>Disable bonus feature for selected customer groups</helpText>
+            <helpText lang="de-DE">Bonusfunktion für ausgewählte Kundengruppen sperren</helpText>
+        </component>
+    </card>
+    <card>
+        <title>Point crediting</title>
+        <title lang="de-DE">Punkte sammeln</title>
+
+        <input-field type="float">
+            <name>bonusSystemConversionFactorCollect</name>
+            <label>Points per euro</label>
+            <label lang="de-DE">Umrechnungsfaktor (1 EUR = ? Punkte)</label>
+            <helpText>The conversion factor determines how many points are awarded for an order value of 1 EUR. E.g. a value of 1 for an order of 10 EUR = 10 points, or a value of 0.5 for an order of 10 EUR => 5 points</helpText>
+            <helpText lang="de-DE">Mit dem Umrechnungsfaktor wird festgelegt, wie viele Punkte für 1 EUR Bestellwert vergeben werden. Z.B.: Ein Wert von 1, um bei einer Bestellung von 10 EUR = 10 Punkte zu vergeben. Ein Wert von 0.5, um bei einer Bestellung von 10 EUR = 5 Punkte zu vergeben.</helpText>
+        </input-field>
+        <input-field type="bool">
+            <name>collectPointsWithoutShippingCosts</name>
+            <label>Exclude shipping costs</label>
+            <label lang="de-DE">Punkte ohne Versandkosten sammeln</label>
+            <helpText>If activated, shipping costs are not taken into account when collecting the points</helpText>
+            <helpText lang="de-DE">Wenn aktiviert, dann werden Versandkosten beim Sammeln der Punkte nicht berücksichtigt</helpText>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>collectPointsRound</name>
+            <label>Round points</label>
+            <label lang="de-DE">Punkte runden</label>
+            <defaultValue>0</defaultValue>
+            <options>
+                <option>
+                    <id>0</id>
+                    <name>Round up</name>
+                    <name lang="de-DE">Aufrunden</name>
+                </option>
+                <option>
+                    <id>1</id>
+                    <name>Round logically</name>
+                    <name lang="de-DE">Logisch runden</name>
+                </option>
+                <option>
+                    <id>2</id>
+                    <name>Round down</name>
+                    <name lang="de-DE">Abrunden</name>
+                </option>
+            </options>
+        </input-field>
+        <input-field type="bool">
+            <name>gainPointsForBackendOrder</name>
+            <label>Get points for admin orders</label>
+            <label lang="de-DE">Erhalten Sie Punkte für Admin-Bestellungen</label>
+            <defaultValue>0</defaultValue>
+        </input-field>
+    </card>
+    <card>
+        <title>Point redemption</title>
+        <title lang="de-DE">Punkte ausgeben</title>
+        <input-field type="bool">
+            <name>disallowRedeemPoints</name>
+            <label>Disable point redemption</label>
+            <label lang="de-DE">Punkte ausgeben deaktivieren</label>
+            <helpText>If this option is activated, then your customers can collect points, but cannot use them as a voucher for an order</helpText>
+            <helpText lang="de-DE">Ist diese Option aktiviert, dann können Ihre Kunden Punkte sammeln, aber keine Punkte als Gutschein für eine Bestellung ausgeben</helpText>
+        </input-field>
+        <input-field type="single-select">
+            <name>basketAmountRedeemRestriction</name>
+            <label>Point redemption restriction</label>
+            <label lang="de-DE">Beschränkung für Punkte Einlösung</label>
+            <helpText>Determine whether after redeeming points there must be at least a certain shopping cart value or the maximum amount of the voucher that is generated by points.</helpText>
+            <helpText lang="de-DE">Legen Sie fest ob nach Einlösen von Punkten mindestens noch ein bestimmter Warenkorbwert vorhanden sein muss oder wie hoch maximal der Gutschein sein darf, der durch Punkte erzeugt wird.</helpText>
+            <options>
+                <option>
+                    <id>0</id>
+                    <name>At least X EUR order value</name>
+                    <name lang="de-DE">Mindestens noch X EUR Bestellwert</name>
+                </option>
+                <option>
+                    <id>1</id>
+                    <name>Maximum of X EUR</name>
+                    <name lang="de-DE">Maximal X EUR</name>
+                </option>
+            </options>
+        </input-field>
+        <input-field type="float">
+            <name>basketAmountRedeemRestrictionValue</name>
+            <label>EUR value of restriction</label>
+            <label lang="de-DE">EUR Wert der Beschränkung</label>
+            <helpText>This setting refers to the "Restriction for point redemption". Define the height of the value here. For example, if you have selected "At least X EUR order value" and enter a value of 10, the shopping cart value must be at least 10 EUR after redeeming points.</helpText>
+            <helpText lang="de-DE">Diese Einstellung bezieht sich auf "Beschränkung für Punkte Einlösung". Legen Sie hier die Höhe des Wertes fest. Wenn Sie beispielsweise "Mindestens noch X EUR Bestellwert" gewählt haben und hier einen Wert von 10 hinterlegen, dann muss der Warenkorbwert nach Einlösen von Punkten noch mindestens 10 EUR betragen.</helpText>
+        </input-field>
+        <input-field type="float">
+            <name>bonusSystemConversionFactorRedeem</name>
+            <label>Conversion Factor (? Points = 1 EUR)</label>
+            <label lang="de-DE">Umrechnungsfaktor (? Points = 1 EUR)</label>
+            <helpText>The conversion factor determines how many points are required for a 1 EUR voucher. E.g. a value of 1. Then your customer needs 1 point for every 1 EUR voucher discount, or a value of 20. Then your customer needs 20 points for every 1 EUR discount</helpText>
+            <helpText lang="de-DE">Mit dem Umrechnungsfaktor wird festgelegt, wie viele Punkte benötigt werden für einen 1 EUR Gutschein. Z.B.: Bei einem Wert von 1, benötigt Ihr Kunde 1 Punkt um eine 1 EUR Reduzierung auf den Kaufpreis zu erhalten. Bei einem Wert von 20, werden 20 Punkte für 1 EUR benötigt.</helpText>
+            <defaultValue>0</defaultValue>
+        </input-field>
+        <input-field type="bool">
+            <name>redeemPointsAutomatically</name>
+            <label>Redeem points automatically on every order</label>
+            <label lang="de-DE">Bonus Punkte automatisch bei Bestellung einlösen</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+        <input-field type="bool">
+            <name>disableVouchersWhenPointsAreInBasket</name>
+            <label>Disable vouchers when point redeem is in basket</label>
+            <label lang="de-DE">Deaktivieren von Gutscheinen, wenn Punkte im Warenkorb eingelöst werden</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Point activation</title>
+        <title lang="de-DE">Bonuspunkte Aktivierung</title>
+
+        <input-field type="single-select">
+            <name>pointActivationType</name>
+            <label>When Order bonus point need to activate</label>
+            <label lang="de-DE">Bei der Bestellung müssen Bonuspunkte aktiviert werden</label>
+            <helpText>
+                Please select how points should be activated after an order.
+                There are the following options:
+                - Always manual (via admin module)
+                - Order paid (the bonus points are credited as soon as the order is set to paid)
+                - Order completed (the bonus points are credited as soon as the order status is set to completed)
+                - Immediately after ordering (the bonus points are credited after submitting the order)
+                - Order shipped (the bonus points are credited after shipping the order)
+            </helpText>
+            <helpText lang="de-DE">
+                Bitte wählen Sie aus, wie Punkte nach einer Bestellung freigeschaltet werden sollen.
+                Es gibt die folgenden Möglichkeiten:
+                - Immer manuell (über Admin Modul)
+                - Bestellung bezahlt (Die Bonuspunkte werden gutgeschrieben, sobald Bestellung auf bezahlt gesetzt wurde)
+                - Bestellung abgeschlossen (Die Bonuspunkte werden gutgeschrieben, sobald Bestellung auf abgeschlossen gesetzt wurde)
+                - Direkt nach Bestellung (Die Bonuspunkte werden nach Abschluss der Bestellung gutgeschrieben)
+                - Bestellung versendet (Die Bonuspunkte werden nach Versand der Bestellung gutgeschrieben)
+            </helpText>
+            <options>
+                <option>
+                    <id>0</id>
+                    <name>Always manual</name>
+                    <name lang="de-DE">Immer manuell</name>
+                </option>
+                <option>
+                    <id>1</id>
+                    <name>Order paid</name>
+                    <name lang="de-DE">Bestellung bezahlt</name>
+                </option>
+                <option>
+                    <id>2</id>
+                    <name>Order completed</name>
+                    <name lang="de-DE">Bestellung abgeschlossen</name>
+                </option>
+                <option>
+                    <id>3</id>
+                    <name>Immediately after ordering</name>
+                    <name lang="de-DE">Direkt nach Bestellung</name>
+                </option>
+                <option>
+                    <id>4</id>
+                    <name>Order shipped</name>
+                    <name lang="de-DE">Bestellung versendet</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>pointActivationCondition</name>
+            <label>Order bonus point activation condition</label>
+            <label lang="de-DE">Aktivierungsbedingung für Bonuspunkte</label>
+            <helpText>
+                Defines what condition type is between "order bonus point activation event" &amp; "Credit bonus points n days after ordering"
+                - OR: One of these two conditions must match
+                - AND: Both conditions must match
+            </helpText>
+            <helpText lang="de-DE">
+                Definiert, welche Beziehung zwischen dem Aktivierungsereignis „Bonuspunkte Aktivierung Bestellung“ und dem Ereignis „Bonuspunkte n-Tage nach Bestellung freischalten“ liegt.
+                - ODER: Eine dieser beiden Bedingungen muss zutreffen
+                - UND: Beide Bedingungen müssen übereinstimmen
+            </helpText>
+            <defaultValue>0</defaultValue>
+            <options>
+                <option>
+                    <id>0</id>
+                    <name>OR</name>
+                    <name lang="de-DE">ODER</name>
+                </option>
+                <option>
+                    <id>1</id>
+                    <name>AND</name>
+                    <name lang="de-DE">UND</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="int">
+            <name>pointActivationAfterDays</name>
+            <label>Credit bonus points n days after ordering</label>
+            <label lang="de-DE">Bonuspunkte n-Tage nach Bestellung freischalten</label>
+            <helpText>
+                This rule can overwrite setting of "Order bonus point activation event" depending on setting of "Order bonus point activation condition"
+                If the field is not filled in or has the value 0, there is no automatic activation after n days.
+                Otherwise the order will be activated after n days and the bonus points will be credited at next login event of customer.
+                If the bonus points have already been activated manually or via another rule, the setting has no effect.
+            </helpText>
+            <helpText lang="de-DE">
+                Diese Einstellung kann die Einstellung von "Bonuspunkte Aktivierung Bestellung" umgehen abhängig von der Einstellung bei "Aktivierungsbedingung für Bonuspunkte"
+                Ist das Feld nicht ausgefüllt oder hat den Wert 0, so erfolgt keine automatische Freischaltung nach n-Tagen.
+                Ansonsten wird die Bestellung beim nächsten Login des Kunden nach n-Tagen freigeschaltet und die Bonus Punkte gutgeschrieben.
+                Wurden die Bonuspunkte bereits manuell oder über eine andere Regel freigeschaltet, so hat die Einstellung keinen Effekt.
+            </helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>removePointsOnOrderCanceled</name>
+            <label>Deduct points on order canceled</label>
+            <label lang="de-DE">Punkte abziehen bei Stornierung Bestellung</label>
+            <helpText>Removes the previously credited points if the order is canceled.</helpText>
+            <helpText lang="de-DE">Entfernt die zuvor gutgeschriebenen Punkte, wenn die Bestellung storniert wird.</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Point expiration</title>
+        <title lang="de-DE">Verfall der Punkte</title>
+        <input-field type="int">
+            <name>expiryDays</name>
+            <label>Bonus point expiration (in days)</label>
+            <label lang="de-DE">Ablauf der Bonuspunkte (in Tagen)</label>
+            <helpText>If the value is greater than 0, the points that have expired (today - input days) will be removed from the customer account</helpText>
+            <helpText lang="de-DE">Wenn der Wert größer 0 ist, werden die Punkte die abgelaufen sind (Heute - Eingabe Tage) vom Kundenkonto entfernt</helpText>
+            <defaultValue>0</defaultValue>
+        </input-field>
+        <input-field type="bool">
+            <name>automaticEMailPointExpiration</name>
+            <label>Enable automatic E-Mail for point expiration</label>
+            <label lang="de-DE">Automatische E-Mail für den Ablauf von Punkten aktivieren</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+        <input-field type="bool">
+            <name>customerCanUnsubscribeAutomaticEMailPointExpiration</name>
+            <label>Customer can unsubscribe from list</label>
+            <label lang="de-DE">Kunde kann sich von der Liste abmelden</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+        <input-field type="int">
+            <name>numberDaysBeforeAutomaticEMailPointExpiration</name>
+            <label>E-Mail number days before points expire</label>
+            <label lang="de-DE">E-Mail Anzahl Tage vor Ablauf der Punkte</label>
+            <defaultValue>7</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Design</title>
+        <title lang="de-DE">Design</title>
+
+        <input-field type="colorpicker">
+            <name>signColor</name>
+            <label>Icon color</label>
+            <label lang="de-DE">Buchstabe Farbe</label>
+            <helpText>The color of the "P" icon.</helpText>
+            <helpText lang="de-DE">Die Farbe des "P" Icon.</helpText>
+            <defaultValue>#ffffff</defaultValue>
+        </input-field>
+        <input-field type="colorpicker">
+            <name>signBackgroundColor</name>
+            <label>Icon background color</label>
+            <label lang="de-DE">Buchstabe Hintergrund Farbe</label>
+            <helpText>The color of the "P" icon background.</helpText>
+            <helpText lang="de-DE">Die Farbe des "P" Icon Hintergrundes.</helpText>
+            <defaultValue>#f1c40f</defaultValue>
+        </input-field>
+        <input-field type="colorpicker">
+            <name>badgeBackgroundColor</name>
+            <label>Badge color</label>
+            <label lang="de-DE">Badge Farbe</label>
+            <defaultValue>#fbf5db</defaultValue>
+        </input-field>
+        <input-field type="colorpicker">
+            <name>pointTextColor</name>
+            <label>Points color</label>
+            <label lang="de-DE">Farbe Punkte Text</label>
+            <defaultValue>#ae8e0a</defaultValue>
+        </input-field>
+        <input-field type="colorpicker">
+            <name>sliderPointColor</name>
+            <label>Slider color</label>
+            <label lang="de-DE">Farbe Slider Punkt</label>
+            <defaultValue>#f1c40f</defaultValue>
+        </input-field>
+        <component name="sw-media-field">
+            <name>pointIcon</name>
+            <label>Icon for points label (50x50 pixels)</label>
+            <label lang="de-DE">Icon für Punkte Label (50x50 Pixel)</label>
+            <helpText>Optionally, an icon file can be used to display the points label. If no file is selected, "P" is used by default.</helpText>
+            <helpText lang="de-DE">Optional kann eine Icon Datei für die Darstellung des Punkte Labels genutzt werden. Wenn keine Datei ausgewählt ist, dann wird im Standard der Textbaustein "P" verwendet.</helpText>
+        </component>
+    </card>
+</config>

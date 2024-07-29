@@ -1,0 +1,54 @@
+{
+    "custom-bonus-system": {
+        "pointIcon": "⚡",
+        "sidebar": {
+            "index_link": "Punktekonto",
+            "bonus_products_link": "Bonus Produkte",
+            "you_have": "Sie besitzen",
+            "points": "Bonus Punkte"
+        },
+        "account": {
+            "bonusTitle":  "Bonus Punkte Historie",
+            "bonusWelcome":  "Sammeln Sie Bonus Punkte für jede Bestellung und lösen diese für spätere Bestellungen als Gutschein ein.",
+            "bonusInfoEmpty": "Aktuell haben Sie keine Bonus Punkte. Falls Sie erst kürzlich eine Bestellung aufgegeben haben, so sind diese möglicherweise gerade in der Prüfung.",
+            "bonusList": {
+                "headDateTitle":  "Datum",
+                "headPointsTitle":  "Bonus Punkte",
+                "headReasonTitle":  "Grund",
+                "order": "Bestellung",
+                "notApproved": "(nicht freigegeben)",
+                "expiryBooking": "Abgelaufene Punkte"
+            },
+            "bonusExpireNextMessage": "Nutzen Sie jetzt noch Ihre Bonus Punkte für eine Bestellung. In %expiryDays% Tagen verfallen %points% Bonus Punkte.",
+            "pointsAccount": {
+                "pointsExpiration": {
+                    "notification": {
+                        "label": "E-Mail-Benachrichtigung über den Ablauf von Punkten",
+                        "checkboxLabel": "Ja, ich möchte die Benachrichtigung über den Ablauf von Punkten abonnieren.",
+                        "message": "Der Status Ihres Abonnements für die Benachrichtigung über den Ablauf Ihrer Punkte wurde gespeichert."
+                    }
+                }
+            }
+        },
+        "checkout": {
+            "getPointsText": "Sie erhalten %points% Bonus Punkte für diese Bestellung",
+            "redeemPointsText": "%points% Bonus Punkte werden in einen Gutschein umgewandelt",
+            "wantToRedeemBonusProductPointsText": "Es werden %points% Punkte durch Bonus Produkte eingelöst.",
+            "youHaveText": "Sie haben %points% Bonus Punkte",
+            "points": "Bonus Punkte",
+            "redeemPointsAction": "Bonus Punkte einlösen: ",
+            "summaryGetPoints": "Kreditpunkte",
+            "summaryPointsRedeemed": "Punkte eingelöst",
+            "pointCartItemText": "Rabatt durch %points% Bonus Punkte",
+            "registerGuestHint": "Für diese Bestellung würden Sie <strong>%points%</strong> Bonus Punkte erhalten. Registrieren Sie jetzt ein kostenloses Benutzerkonto.",
+            "updateRedeemPoints": "Punkte einlösen" 
+        },
+        "productDetails": {
+            "getPointsText": "Sie erhalten %points% Bonus Punkte für diese Bestellung",
+            "getPointsCompactText": "%points% Bonus Punkte sichern",
+            "loginToBuyWithPoints": "Dieses Produkt kann auch mit Punkten gekauft werden. Bitte führen Sie einen Login durch",
+            "loginToBuyWithPointsOnly": "Dieses Produkt kann nur mit Punkten gekauft werden. Bitte führen Sie einen Login durch",
+            "buyWithNumberPoints": "Für je %points% Bonus Punkte in den Warenkorb"
+        }
+    }
+}

@@ -1,0 +1,104 @@
+{% block custom_bonus_system_list %}
+<sw-page class="custom-bonus-system-condition">
+    {% block sw_customer_list_search_bar %}
+    {% endblock %}
+
+    {% block custom_bonus_system_list_smart_bar_header %}
+        <template #smart-bar-header>
+            {% block custom_bonus_system_list_smart_bar_header_title %}
+                <h2>
+                    {% block custom_bonus_system_list_smart_bar_header_title_text %}
+                        {{ $tc('custom-bonus-system.list.condition.textOverview') }}
+                        {% endblock %}
+
+                        {% block custom_bonus_system_list_smart_bar_header_amount %}
+                        <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                        ({{ total }})
+                        </span>
+                    {% endblock %}
+                </h2>
+            {% endblock %}
+        </template>
+    {% endblock %}
+
+    {% block custom_bonus_system_list_smart_bar_actions %}
+        <template slot="smart-bar-actions">
+            {% block custom_bonus_system_list_smart_bar_actions_add %}
+                <sw-button
+                    class="custom-bonus-system-list__button-add-promotion"
+                    :routerLink="{ name: 'custom.bonus.system.conditioncreate' }"
+                    variant="primary">
+                    {{ $tc('custom-bonus-system.list.condition.buttonAddCondition') }}
+                </sw-button>
+            {% endblock %}
+        </template>
+    {% endblock %}
+
+    <template #content>
+            {% block custom_bonus_system_list_content %}
+            <div class="custom-bonus-system-condition-list__content">
+                {% block custom_bonus_system_component_navigation %}
+                    <custom-bonus-system-navigation></custom-bonus-system-navigation>
+                {% endblock %}
+                {% block custom_bonus_system_list_grid %}
+                    <sw-entity-listing ref="customBonusSystemconditionGrid"
+                                       v-if="condition"
+                                       class="sw-product-list-grid"
+                                       :items="condition"
+                                       :columns="columns"
+                                       :repository="repository"
+                                       :showSelection="true"
+                                       :allowDelete="true"
+                                       detailRoute="custom.bonus.system.conditiondetail"
+                                       :allowEdit="true"
+                                       :showSettings="true"
+                                       :isLoading="isLoading"
+                                       >
+                        {% block custom_bonus_system_list_grid_columns %}
+                            {% block custom_bonus_system_list_grid_columns_condition_name %}
+                                <template slot="column-name" slot-scope="{ item }">
+                                    {{ item.name }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_condition_active %}
+                                <template #column-active="{ item }">
+                                    <sw-icon v-if="item.active" name="regular-checkmark-xs" small class="is--active"/>
+                                    <sw-icon v-else name="regular-times-s" small class="is--inactive"/>
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_rcondition_validFrom %}
+                                <template #column-validFrom="{ item }">
+                                    {{ item.validFrom | date({hour: '2-digit', minute: '2-digit'}) }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_condition_validUntil %}
+                                <template #column-validUntil="{ item }">
+                                    {{ item.validUntil | date({hour: '2-digit', minute: '2-digit'}) }}
+                                </template>
+                            {% endblock %}
+                        {% endblock %}
+                    </sw-entity-listing>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_empty_state %}
+                    <sw-empty-state v-if="!isLoading && !total" :title="$tc('custom-bonus-system.list.condition.messageEmpty')"></sw-empty-state>
+                {% endblock %}
+            </div>
+            {% endblock %}
+    </template>
+
+    {% block custom_bonus_system_list_sidebar %}
+        <template #sidebar>
+            <sw-sidebar>
+                {% block custom_bonus_system_list_sidebar_refresh %}
+                    <sw-sidebar-item
+                            icon="regular-undo"
+                            :title="$tc('custom-bonus-system.list.titleSidebarItemRefresh')"
+                            @click="onRefresh">
+                    </sw-sidebar-item>
+                {% endblock %}
+            </sw-sidebar>
+        </template>
+    {% endblock %}
+</sw-page>
+{% endblock %}

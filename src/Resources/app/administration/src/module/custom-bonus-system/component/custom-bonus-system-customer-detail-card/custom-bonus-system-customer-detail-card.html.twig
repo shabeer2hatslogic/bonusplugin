@@ -1,0 +1,84 @@
+{% block custom_bonus_system_customer_detail_card  %}
+    <sw-card class="custom-bonus-system-customer-detail-card" :title="title" :isLoading="isLoading">
+        {% block custom_bonus_system_customer_detail_card_rows %}
+            <template #grid>
+                <sw-container rows="auto auto">
+                    {% block custom_bonus_system_customer_detail_row_primary %}
+                        <sw-card-section divider="bottom">
+                            {% block custom_bonus_system_customer_detail_metadata_container %}
+                                <sw-container columns="80px 1fr max-content" gap="0px 30px">
+                                    {% block custom_bonus_system_customer_detail_avatar %}
+                                        <sw-avatar size="80px"
+                                                   :sourceContext="customer"
+                                                   :firstName="customer.firstName"
+                                                   :lastName="customer.lastName">
+                                        </sw-avatar>
+                                    {% endblock %}
+
+                                    {% block custom_bonus_system_customer_detail_metadata %}
+                                        <div class="custom-bonus-syste-customer-detail-card__metadata">
+                                            {% block custom_bonus_system_customer_detail_metadata_customer_name %}
+                                                {% block sw_custsomer_card_metadata_customer_name_label %}
+                                                    <div v-if="customer && customer.salutation" class="custom-individual-offer-base-card__metadata-customer-name">
+                                                        {{ fullName }}
+                                                    </div>
+                                                {% endblock %}
+                                            {% endblock %}
+
+                                            {% block custom_bonus_system_customer_detail_metadata_customer_email %}
+                                                {% block custom_bonus_system_customer_detail_metadata_customer_email_label %}
+                                                    <div v-if="customer.email" class="custom-individual-offer-base-card__metadata-item ">
+                                                        <a class="custom-individual-offer-base-card-email-link" :href="getMailTo(customer.email)" title="mailto">{{ customer.email }}</a>
+                                                    </div>
+                                                {% endblock %}
+                                            {% endblock %}
+
+                                            {% block custom_bonus_system_customer_detail_metadata_additional %}
+                                                <slot name="metadata-additional">
+                                                    {% block custom_bonus_system_customer_detail_slot_metadata_additional %}{% endblock %}
+                                                </slot>
+                                            {% endblock %}
+
+                                        </div>
+                                    {% endblock %}
+
+                                    {% block custom_bonus_system_customer_detail_info_summary %}
+                                        <div class="custom-bonus-system-customer-detail__info-summary">
+                                            {% block custom_bonus_system_customer_detail_info_summary_entries %}
+                                                <div class="custom-bonus-system-customer-detail__metadata-price">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td>{{ $tc('custom-bonus-system.detail.main.customer.points') }}:</td>
+                                                            <td class="second-col">{{ points }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <sw-external-link
+                                                                    class="custom-bonus-system-customer-detail__book-points-link"
+                                                                    @click="displayPointBookingModal">
+                                                                    {{ $tc('custom-bonus-system.detail.main.customer.bookPoints') }}
+                                                                </sw-external-link>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            {% endblock %}
+                                        </div>
+                                    {% endblock %}
+                                </sw-container>
+                            {% endblock %}
+                        </sw-card-section>
+                    {% endblock %}
+
+                    {% block custom_bonus_system_customer_detail_row_secondary %}
+                        <sw-card-section secondary slim>
+                            <slot name="default">
+                                {% block custom_bonus_system_customer_detail_slot_default %}{% endblock %}
+                            </slot>
+                        </sw-card-section>
+                    {% endblock %}
+                </sw-container>
+            </template>
+        {% endblock %}
+    </sw-card>
+{% endblock %}

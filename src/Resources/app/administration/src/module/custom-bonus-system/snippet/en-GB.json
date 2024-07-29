@@ -1,0 +1,160 @@
+{
+    "custom-bonus-system": {
+        "customRule": {
+            "customerHasBonusPoints": {
+                "label": "Customer has bonus points"
+            },
+            "customerBonusPoints": {
+                "label": "Customer Bonus Points"
+            }
+        },
+        "general": {
+            "menuItem": "Bonus system",
+            "bonusOrderMenuItem": "Credits",
+            "customerMenuItem":  "Customers",
+            "conditionMenuItem": "Conditions",
+            "bonusProductMenuItem": "Bonus products",
+            "bonusDashboardMenuItem": "Dashboard"
+        },
+        "list": {
+            "booking": {
+                "messageEmpty": "No entries found. You can use filter settings to show activated/ not activated and order/ no order credited.",
+                "approve": "Activate",
+                "textOverview": "Credit overview",
+                "columnCreateDate": "Date",
+                "columnSalesChannelName": "Sales channel",
+                "columnCustomerName": "Customer name",
+                "columnPoints": "Points",
+                "columnOrder": "Order",
+                "columnDescription": "Reason",
+                "columnApproved": "Activated",
+                "titleSidebarItemFilter": "Filter",
+                "titleSidebarItemFilterApproved": "Activated",
+                "titleSidebarItemFilterIsOrder": "Is order",
+                "expiryBooking": "Expired Points"
+            },
+            "userPoint": {
+                "textOverview": "Customer overview",
+                "columnPoints": "Points balance",
+                "columnCustomerEmail": "E-mail",
+                "bookLink": "Edit points",
+                "viewDetails": "View",
+                "modal": {
+                    "title": "Credit/Deduct points",
+                    "bookReason": "Reason",
+                    "bookPoints": "Points",
+                    "bookSubmit": "Apply",
+                    "formError": "Error: Please check form values."
+                }
+            },
+            "condition": {
+                "textOverview": "Conditions overview",
+                "buttonAddCondition": "Add condition",
+                "messageEmpty": "No entries found",
+                "columnName": "Name",
+                "columnActive": "Active",
+                "columnValidFrom": "Valid from",
+                "columnValidUntil": "Valid until"
+            },
+            "bonusProduct": {
+                "messageEmpty": "No entries found. You can create your first bonus product here.",
+                "textOverview": "Bonus product overview",
+                "buttonAddBonusProduct": "New product",
+                "columnName": "Name",
+                "columnActive": "Active",
+                "columnValidFrom": "Valid from",
+                "columnValidUntil": "Valid until"
+            },
+            "dashboard": {
+                "textOverview": "Dashboard overview",
+                "salesChannelsLabel": "Statistics",
+                "topEarnedPointsLabel": "Top 5 points credited",
+                "topCreditPointsLabel": "Top 5 point balances",
+                "salesChannelLabel": "Sales Channel",
+                "customerLabel": "Customer",
+                "pointsEarnedLabel": "Points credited",
+                "pointsSpentLabel": "Points redeemed",
+                "pointsNotApprovedLabel": "Points not activated",
+                "pointsCreditLabel": "Points balance",
+                "showAllLabel": "Show all",
+                "filterAllLabel": "Overall",
+                "filterlast30DaysLabel": "Last 30 Days",
+                "filterlast14DaysLabel": "Last 14 Days",
+                "filterlast7DaysLabel": "Last 7 Days",
+                "filterlast24HoursLabel": "Last 24 Hours",
+                "filterSinceYesterdayLabel": "Since Yesterday"
+            }
+        },
+        "detail": {
+            "main": {
+                "labelAddNewRule": "Create new rule",
+                "condition": {
+                    "cardTitleConditionBaseInfo": "Base settings",
+                    "textHeadline": "Bonus condition",
+                    "buttonCancel": "Cancel",
+                    "buttonSave": "Save",
+                    "labelName": "Name",
+                    "placeholderName": "Name",
+                    "labelActive": "Active",
+                    "labelValidFrom": "Valid from",
+                    "labelValidUntil": "Valid until",
+                    "labelType": "Condition type",
+                    "placeholderType": "Please choose a type",
+                    "labelSubType": "Type of change",
+                    "placeholderSubTypeConversionFactor": "Please choose a type of point change",
+                    "placeholderSubTypeExclude": "Please choose a type of exclude",
+                    "type": {
+                        "excludeProducts": "Exclude products from bonus points",
+                        "individualBonusFactorForCustomer": "Individual bonus factor for customer or customer group",
+                        "individualBonusFactorForProductOrStream": "Individual bonus factor for product or product group"
+                    },
+                    "subType": {
+                        "conversionFactorCollect": "Credit conversion factor",
+                        "conversionFactorRedeem": "Redemption conversion factor",
+                        "excludeForRedeem": "Exclude from redemption",
+                        "excludeForCollect": "Exclude from credits"
+                    },
+                    "labelConversionFactorCollect": "Conversion Factor (1 EUR = ? points)",
+                    "cardTitleConditionRuleInfo": "Rules",
+                    "cardTitleConditionRule": {
+                        "labelConditionRuleProduct": "Products",
+                        "labelConditionRuleStream": "Product groups",
+                        "labelConditionRuleCategory": "Categories",
+                        "labelConditionRuleCustomerGroup": "Customer groups",
+                        "labelConditionRuleCustomerNumber": "Customer numbers"
+                    }
+                },
+
+                "bonusProduct": {
+                    "textHeadline": "Bonus product detail",
+                    "buttonCancel": "Cancel",
+                    "buttonSave": "Save",
+                    "cardTitleBonusProductBaseInfo": "Base settings",
+                    "product": "Product",
+                    "placeholderProduct": "Choose product",
+                    "labelActive": "Active",
+                    "labelValidFrom": "Valid from",
+                    "labelValidUntil": "Valid until",
+                    "placeholderType": "Please choose a the point cost type",
+                    "labelOnlyBuyableWithPoints": "Only buyable with points",
+                    "labelType": "Costs",
+                    "type": {
+                        "usePluginSettingFactor": "Use redeem point factor from plugin settings",
+                        "pointValue": "Define points"
+                    },
+                    "labelValue": "Number of points",
+                    "labelMaxOrderQuantity": "Max. order quantity"
+                },
+                "customer": {
+                    "bookPoints": "Book points",
+                    "textHeadline": "Customer details",
+                    "buttonCancel": "Cancel",
+                    "points": "Amount points",
+                    "bookingList": {
+                        "order": "Order"
+                    }
+                }
+            }
+        }
+    }
+}

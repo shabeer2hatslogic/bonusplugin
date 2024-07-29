@@ -1,0 +1,43 @@
+{% block custom_bonus_system_component_navigation %}
+        <sw-tabs class="custom-bonus-system-detail-page__tabs">
+                {% block custom_bonus_system_content_tabs_index %}
+                        <sw-tabs-item :route="{ name: 'custom.bonus.system.index'}"
+                                      :title="$tc('custom-bonus-system.general.bonusDashboardMenuItem')"
+                        >
+                                {{ $tc('custom-bonus-system.general.bonusDashboardMenuItem') }}
+                        </sw-tabs-item>
+                {% endblock %}
+
+                {% block custom_bonus_system_content_tabs_booking %}
+                        <sw-tabs-item :route="{ name: 'custom.bonus.system.booking'}"
+                                      :title="$tc('custom-bonus-system.general.bonusOrderMenuItem')"
+                        >
+                                {{ $tc('custom-bonus-system.general.bonusOrderMenuItem') }}
+                        </sw-tabs-item>
+                {% endblock %}
+
+                {% block custom_bonus_system_content_tabs_customer %}
+                        <sw-tabs-item :route="{ name: 'custom.bonus.system.customer'}"
+                                      :title="$tc('custom-bonus-system.general.customerMenuItem')"
+                        >
+                                {{ $tc('custom-bonus-system.general.customerMenuItem') }}
+                        </sw-tabs-item>
+                {% endblock %}
+
+                {% block custom_bonus_system_detail_content_tabs_condition %}
+                        <sw-tabs-item :route="{ name: 'custom.bonus.system.condition'}"
+                                      :title="$tc('custom-bonus-system.general.conditionMenuItem')"
+                        >
+                                {{ $tc('custom-bonus-system.general.conditionMenuItem') }}
+                        </sw-tabs-item>
+                {% endblock %}
+
+                {% block custom_bonus_system_detail_content_tabs_bonus_product %}
+                        <sw-tabs-item :route="{ name: 'custom.bonus.system.bonusproduct'}"
+                                      :title="$tc('custom-bonus-system.general.bonusProductMenuItem')"
+                        >
+                                {{ $tc('custom-bonus-system.general.bonusProductMenuItem') }}
+                        </sw-tabs-item>
+                {% endblock %}
+        </sw-tabs>
+{% endblock %}

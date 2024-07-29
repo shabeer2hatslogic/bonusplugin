@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/layout/header/header.html.twig' %}
+
+{% set customBonusSystem = page.header.extensions.customBonusSystem %}
+
+{% block layout_header_actions_account %}
+    {% block layout_header_actions_bonus_icon %}
+        {% if customBonusSystem.useBonusSystem and customBonusSystem.showPointsInHeader == true %}
+            <div class="col-auto">
+                {% sw_include '@Storefront/storefront/component/bonus/header/points.html.twig' with {
+                    'customBonusSystemPoints': page.header.customBonusSystemPoints
+                } %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    {{ parent() }}
+{% endblock %}

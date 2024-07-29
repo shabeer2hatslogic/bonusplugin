@@ -1,0 +1,328 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="CustomBonusSystem\Core\Entity\Customer\CustomerExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Entity\Order\OrderExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Entity\Bonus\BonusBookingDefinition">
+            <tag name="shopware.entity.definition" entity="custom_bonus_system_booking"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Entity\Bonus\BonusUserPointDefinition">
+            <tag name="shopware.entity.definition" entity="custom_bonus_system_user_point"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Entity\Bonus\BonusImportPointDefinition">
+            <tag name="shopware.entity.definition" entity="custom_bonus_system_import_point"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Entity\SalesChannel\SalesChannelExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Entity\Product\ProductExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Entity\Bonus\BonusConditionDefinition">
+            <tag name="shopware.entity.definition" entity="custom_bonus_system_condition"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Entity\Bonus\BonusProductDefinition">
+            <tag name="shopware.entity.definition" entity="custom_bonus_system_bonus_product"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Checkout\Bonus\BonusDiscountCalculator">
+            <argument type="service" id="Shopware\Core\Checkout\Promotion\Cart\Discount\ScopePackager\CartScopeDiscountPackager"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\AbsolutePriceCalculator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\LineItem\LineItemQuantitySplitter"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Checkout\Bonus\BonusCollector">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService"/>
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Translation\Translator" />
+            <argument type="service" id="sales_channel.product.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Bonus\BonusDiscountCalculator" />
+
+            <!-- after product cart processor -->
+            <tag name="shopware.cart.processor" priority="5000"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\Calculation\Condition\ConditionService">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="cache.object"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CurrencyCalculationService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\Condition\ConditionService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\Calculation\CurrencyCalculationService">
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\BonusService">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="custom_bonus_system_booking.repository" />
+            <argument type="service" id="custom_bonus_system_user_point.repository" />
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextFactory" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\CartRuleLoader" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService"/>
+            <argument type="service" id="customer.repository" />
+            <argument type="service" id="sales_channel.repository" />
+        </service>
+
+        <service id="CustomBonusSystem\Storefront\Page\Listing\ListingPageLoader">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService"/>
+        </service>
+    
+        <service id="CustomBonusSystem\Core\Checkout\Cart\BonusProductCartService">
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\BonusProduct\BonusProductService">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="custom_bonus_system_bonus_product.repository" />
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingLoader" />
+            <argument type="service" id="property_group_option.repository"/>
+            <argument type="service" id="product_sorting.repository" on-invalid="null"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Checkout\Cart\Route\AddBonusProductToCartRoute" public="true">
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Cart\BonusProductCartService"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService"/>
+        </service>
+
+        <service id="CustomBonusSystem\Storefront\Controller\BonusController" public="true">
+            <argument type="service" id="CustomBonusSystem\Storefront\Page\Listing\ListingPageLoader"/>
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusProduct\BonusProductService"/>
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="sales_channel.product.repository"/>
+            <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
+            </call>
+        </service>
+
+        <service id="CustomBonusSystem\Storefront\Controller\BonusCheckoutController" public="true">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\PageSubscriber">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService"/>
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ExpiryService" />
+            <argument type="service" id="translator"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\Condition\ConditionService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\SalesChannelSubscriber">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusProduct\BonusProductService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\OrderStateSubscriber">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+        <service id="CustomBonusSystem\Subscriber\ConditionIndexer">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="custom_bonus_system_condition.repository"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\Condition\ConditionService"/>
+            <tag name="shopware.entity_indexer"/>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\ConfigService">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+        </service>
+
+        <service id="CustomBonusSystem\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
+            <tag name="shopware.snippet.file" priority="100"/>
+        </service>
+        <service id="CustomBonusSystem\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
+            <tag name="shopware.snippet.file" priority="100"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\Twig\AddPointsToInvoiceDocumentSubscriber">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Checkout\Cart\Calculator">
+            <argument id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService" type="service"/>
+            <argument id="CustomBonusSystem\Core\Bonus\ConfigService" type="service"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Checkout\Cart\BuyWithPointsCartProcessor">
+            <argument id="custom_bonus_system_bonus_product.repository" type="service"/>
+            <argument id="CustomBonusSystem\Core\Checkout\Cart\Calculator" type="service"/>
+            <argument id="CustomBonusSystem\Core\Bonus\BonusService" type="service" />
+            <argument id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor" type="service" />
+            <!-- after product collector/processor but before promotion processor to prevent wrong calculation with bonus products and some promotion discount -->
+            <tag name="shopware.cart.processor" priority="4910"/>
+            <tag name="shopware.cart.collector" priority="4910"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\RemoveRedeemedBonusPointsSubscriber">
+            <argument id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor" type="service"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Rule\HasBonusPointsRule">
+            <tag name="shopware.rule.definition"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Rule\BonusPointsRule">
+            <tag name="shopware.rule.definition"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\CustomerLoginSubscriber">
+            <argument id="CustomBonusSystem\Core\Bonus\ConfigService" type="service"/>
+            <argument id="CustomBonusSystem\Core\Bonus\ExpiryService" type="service"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\ExpiryService">
+            <argument id="custom_bonus_system_booking.repository" type="service"/>
+            <argument id="custom_bonus_system_user_point.repository" type="service"/>
+            <argument id="CustomBonusSystem\Core\Bonus\ConfigService" type="service"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\CacheInvalidationSubscriber">
+            <argument id="Shopware\Core\Framework\Adapter\Cache\CacheInvalidator" type="service"/>
+            <argument id="custom_bonus_system_bonus_product.repository" type="service"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Controller\Api\BonusSystemApiController" public="true">
+            <argument id="customer.repository" type="service"/>
+            <argument id="CustomBonusSystem\Core\Bonus\BonusService" type="service"/>
+            <argument id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextFactory" type="service" />
+            <argument id="Doctrine\DBAL\Connection" type="service" />
+            <argument id="custom_bonus_system_user_point.repository" type="service" />
+            <argument type="service" id="sales_channel.repository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+      
+        <service id="CustomBonusSystem\Subscriber\ProductListingResultSubscriber">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\CalculationService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\Calculation\Condition\ConditionService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Core\Content\Flow\Dispatching\Action\ChangePointsAction">
+            <argument id="CustomBonusSystem\Core\Bonus\BonusService" type="service"/>
+            <tag name="flow.action" priority="600" key="action.change.bonus.points"/>
+        </service>
+        <service id="CustomBonusSystem\Core\Content\Flow\Subscriber\BusinessEventCollectorSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\BonusPointsChangedSubscriber">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="custom_bonus_system_user_point.repository" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\OrderEventSubscriber">
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!-- Decorating the CartScopeDiscountPackager to calculate promotion discounts after bonus points discount -->
+        <service id="CustomBonusSystem\Core\Checkout\Promotion\Cart\Discount\ScopePackager\CartScopeDiscountPackagerDecorator" decorates="Shopware\Core\Checkout\Promotion\Cart\Discount\ScopePackager\CartScopeDiscountPackager">
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Promotion\Cart\Discount\ScopePackager\CartScopeDiscountPackagerDecorator.inner" />
+        </service>
+
+        <!-- Decorating the PromotionProcessor to calculate promotion discounts after bonus points discount -->
+        <service id="CustomBonusSystem\Core\Checkout\Promotion\Cart\PromotionProcessorDecorator" decorates="Shopware\Core\Checkout\Promotion\Cart\PromotionProcessor">
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Promotion\Cart\PromotionProcessorDecorator.inner"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+        </service>
+
+        <service id="CustomBonusSystem\Subscriber\CartSubscriber">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Storefront\Controller\BonusController" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Processor" />
+            <argument type="service" id="CustomBonusSystem\Core\Checkout\Bonus\BonusProcessor"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="CustomBonusSystem\Service\ScheduledTask\BonusPointActivationTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="CustomBonusSystem\Service\ScheduledTask\BonusPointActivationTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="CustomBonusSystem\Core\Bonus\NotificationService">
+            <argument type="service" id="Shopware\Core\Content\Mail\Service\MailService"/>
+            <argument type="service" id="mail_template.repository"/>
+        </service>
+
+        <service id="CustomBonusSystem\Service\ScheduledTask\PointsExpirationNotificationTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="CustomBonusSystem\Service\ScheduledTask\PointsExpirationNotificationTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ConfigService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\BonusService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\ExpiryService" />
+            <argument type="service" id="CustomBonusSystem\Core\Bonus\NotificationService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+    </services>
+</container>

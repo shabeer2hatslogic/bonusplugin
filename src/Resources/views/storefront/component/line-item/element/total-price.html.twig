@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/component/line-item/element/total-price.html.twig' %}
+
+{% block component_line_item_total_price_value %}
+    {% if lineItem.payload.customBonusSystem %}
+        <div class="line-item-total-price-value">
+            {{ lineItem.payload.customBonusSystem.costs }}P
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

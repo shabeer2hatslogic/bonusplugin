@@ -1,0 +1,22 @@
+{% sw_extends '@Storefront/storefront/component/line-item/type/product.html.twig' %}
+
+{% block component_line_item_type_product_image_inner %}
+    {% if lineItem.extension('customBonusSystem') %}
+        <div class="product-badges">
+            <div class="badge-lg badge-bonus-product">
+                <span class="bonus-text">BONUS</span>
+            </div>
+        </div>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block component_line_item_type_product_col_total_price %}
+    {% if lineItem.extension('customBonusSystem') %}
+        <div class="line-item-total-price line-item-price">
+            {{ lineItem.extension('customBonusSystem').costs }}P
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

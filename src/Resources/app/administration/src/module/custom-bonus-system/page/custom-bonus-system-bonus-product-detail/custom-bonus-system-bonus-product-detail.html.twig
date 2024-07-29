@@ -1,0 +1,164 @@
+{% block custom_bonus_system_bonus_product_detail %}
+    <sw-page class="custom-bonus-system-bonus-product-detail">
+
+        {% block custom_bonus_system_bonus_product_detail_header %}
+            <template #smart-bar-header>
+                <h2>{{ placeholder(bonusProduct, 'name', $tc('custom-bonus-system.detail.main.bonusProduct.textHeadline')) }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block custom_bonus_system_bonus_product_detail_actions %}
+            <template #smart-bar-actions>
+
+                {% block custom_bonus_system_bonus_product_detail_actions_abort %}
+                    <sw-button :disabled="bonusProductIsLoading" v-tooltip.bottom="tooltipCancel" @click="onCancel">
+                        {{ $tc('custom-bonus-system.detail.main.bonusProduct.buttonCancel') }}
+                    </sw-button>
+                {% endblock %}
+
+                {% block custom_bonus_system_bonus_product_detail_actions_save %}
+                <sw-button-process
+                        class="custom-bonus-system-bonus-product-detail__save-action"
+                        :isLoading="isLoading"
+                        v-model="isSaveSuccessful"
+                        :disabled="isLoading"
+                        variant="primary"
+                        v-tooltip.bottom="tooltipSave"
+                        @click.prevent="onSave">
+                    {{ $tc('custom-bonus-system.detail.main.bonusProduct.buttonSave') }}
+                </sw-button-process>
+                {% endblock %}
+
+            </template>
+        {% endblock %}
+
+        {% block custom_bonus_system_bonus_product_detail_content %}
+            <sw-card-view slot="content">
+
+            {% block custom_bonus_system_bonus_product_detail_base_basic_info_card %}
+                <sw-card :title="$tc('custom-bonus-system.detail.main.bonusProduct.cardTitleBonusProductBaseInfo')" :isLoading="bonusProductIsLoading">
+                    <template v-if="!bonusProductIsLoading">
+                        <sw-container class="custom-bonus-system-bonus-product-detail__container"
+                                      columns="repeat(auto-fit, minmax(250px, 1fr)"
+                                      gap="0 30px">
+                            <div class="custom-bonus-system-bonus-product-detail__base-info-wrapper">
+
+                                {% block custom_bonus_system_bonus_product_detail_base_info_field_product %}
+                                    <sw-entity-single-select
+                                        entity="product"
+                                        :label="$tc('custom-bonus-system.detail.main.bonusProduct.product')"
+                                        :placeholder="$tc('custom-bonus-system.detail.main.bonusProduct.placeholderProduct')"
+                                        :criteria="productCriteria"
+                                        v-model="bonusProduct.productId">
+
+                                        <template #selection-label-property="{ item }">
+                                            <slot
+                                                    name="selection-label-property"
+                                                    v-bind="{ item }"
+                                            >
+                                                {% block custom_bonus_system_bonus_product_detail_select_results_variant_info %}
+                                                    <sw-product-variant-info :variations="item.variation">
+                                                        {{ item.translated.name || item.name }}
+                                                    </sw-product-variant-info>
+                                                {% endblock %}
+                                            </slot>
+                                        </template>
+
+                                        <template #result-item="{ item, index }">
+                                            <slot
+                                                    name="result-item"
+                                                    v-bind="{ item, index }"
+                                            >
+                                                <li
+                                                        is="sw-select-result"
+                                                        v-bind="{ item, index }"
+                                                >
+                                                    {% block custom_bonus_system_bonus_product_detail_select_results_list_result_label %}
+                                                        <sw-product-variant-info :variations="item.variation">
+                                                            {{ item.translated.name || item.name }}
+                                                        </sw-product-variant-info>
+                                                    {% endblock %}
+                                                </li>
+                                            </slot>
+                                        </template>
+
+                                    </sw-entity-single-select>
+                                {% endblock %}
+                            </div>
+                        </sw-container>
+
+                        <sw-container columns="1fr 1fr" gap="0px 30px">
+                            {% block custom_bonus_system_bonus_product_detail_base_info_field_private %}
+                                <sw-checkbox-field v-model="bonusProduct.active"
+                                                   :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelActive', bonusProduct.private)"
+                                                   size="small">
+                                </sw-checkbox-field>
+                            {% endblock %}
+                            {% block custom_bonus_system_bonus_product_detail_base_info_field_amount %}
+                                <sw-number-field :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelMaxOrderQuantity')"
+                                                 v-model="bonusProduct.maxOrderQuantity"
+                                ></sw-number-field>
+                            {% endblock %}
+                        </sw-container>
+
+                        <sw-container columns="1fr 1fr" gap="0px 30px">
+                            {% block custom_bonus_system_bonus_product_detail_base_info_valid_from_field %}
+                                <sw-datepicker dateType="datetime-local"
+                                               :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelValidFrom')"
+                                               v-model="bonusProduct.validFrom">
+                                </sw-datepicker>
+                            {% endblock %}
+
+                            {% block custom_bonus_system_bonus_product_detail_base_info_valid_until_field %}
+                                <sw-datepicker dateType="datetime-local"
+                                               :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelValidUntil')"
+                                               v-model="bonusProduct.validUntil">
+                                </sw-datepicker>
+                            {% endblock %}
+                        </sw-container>
+
+                        <sw-container columns="1fr" gap="0px 30px">
+                            {% block custom_bonus_system_bonus_product_detail_base_info_type %}
+                                <sw-select-field
+                                    :placeholder="$tc('custom-bonus-system.detail.main.bonusProduct.placeholderType')"
+                                    :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelType')"
+                                    required
+                                    v-model="bonusProduct.type">
+                                    <option value="0">{{ $tc('custom-bonus-system.detail.main.bonusProduct.type.usePluginSettingFactor') }}</option>
+                                    <option value="1">{{ $tc('custom-bonus-system.detail.main.bonusProduct.type.pointValue') }}</option>
+                                </sw-select-field>
+                            {% endblock %}
+                        </sw-container>
+
+                        <sw-container columns="1fr" gap="0px 30px">
+                            {% block custom_bonus_system_bonus_product_detail_base_info_value %}
+                                <sw-number-field
+                                    v-if="bonusProduct.type > 0"
+                                    :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelValue')"
+                                    v-model="bonusProduct.value"
+                                    numberType="float"
+                                    :step="null"
+                                    :min="0"
+                                    :max="null"
+                                    :value="1"
+                                    :digits="2"
+                                    :allowEmpty="false">
+                                </sw-number-field>
+                            {% endblock %}
+                        </sw-container>
+
+                        {% block custom_bonus_system_bonus_product_detail_base_info_only_buyable_with_points_field %}
+                            <sw-checkbox-field v-model="bonusProduct.onlyBuyableWithPoints"
+                                               :label="$tc('custom-bonus-system.detail.main.bonusProduct.labelOnlyBuyableWithPoints')"
+                                               size="small">
+                            </sw-checkbox-field>
+                        {% endblock %}
+
+                    </template>
+                </sw-card>
+            {% endblock %}
+        </sw-card-view>
+    {% endblock %}
+
+    </sw-page>
+{% endblock %}

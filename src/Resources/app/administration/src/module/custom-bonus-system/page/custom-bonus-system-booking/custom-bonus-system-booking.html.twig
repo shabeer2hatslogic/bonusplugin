@@ -1,0 +1,120 @@
+{% block custom_bonus_system_list %}
+<sw-page class="custom-bonus-system-order-list">
+    {% block custom_bonus_system_list_smart_bar_header %}
+        <template #smart-bar-header>
+            {% block custom_bonus_system_list_smart_bar_header_title %}
+                <h2>
+                    {% block custom_bonus_system_list_smart_bar_header_title_text %}
+                        {{ $tc('custom-bonus-system.list.booking.textOverview') }}
+                    {% endblock %}
+
+                    {% block custom_bonus_system_list_smart_bar_header_amount %}
+                        <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                        ({{ total }})
+                        </span>
+                    {% endblock %}
+                </h2>
+            {% endblock %}
+        </template>
+    {% endblock %}
+
+    <template #content>
+            {% block custom_bonus_system_list_content %}
+            <div class="sw-product-list__content">
+                {% block custom_bonus_system_component_navigation %}
+                    <custom-bonus-system-navigation></custom-bonus-system-navigation>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_grid %}
+                    <custom-bonus-system-booking-list ref="customBonusSystemGrid"
+                                       v-if="bonus"
+                                       class="sw-product-list-grid"
+                                       :items="bonus"
+                                       :columns="columns"
+                                       :repository="repository"
+                                       :showSelection="true"
+                                       :showActions="false"
+                                       :allowDelete="false"
+                                       :isLoading="isLoading"
+                                       >
+                        {% block custom_bonus_system_list_grid_columns %}
+                            {% block custom_bonus_system_list_grid_columns_order %}
+                                <template slot="column-order" slot-scope="{ item }">
+                                    {{ item.order.orderNumber }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_points %}
+                                <template slot="column-points" slot-scope="{ item }">
+                                    {{ item.points }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_description %}
+                                <template slot="column-description" slot-scope="{ item }">
+                                    <span v-if="item.customFields && item.customFields.isExpiryBooking">
+                                        {{ $tc('custom-bonus-system.list.booking.expiryBooking') }}
+                                    </span>
+                                    <span v-else-if="item.order">
+                                        {{ $tc('custom-bonus-system.detail.main.customer.bookingList.order') }}
+                                    </span>
+                                    <span v-else>
+                                        {{ item.description }}
+                                    </span>
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_approved %}
+                                <template slot="column-approved" slot-scope="{ item }">
+                                    {{ item.approved }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_created_at %}
+                                <template #column-createdAt="{ item }">
+                                    {{ item.createdAt | date({hour: '2-digit', minute: '2-digit'}) }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_saleschannel_name %}
+                                <template slot="column-salesChannel.name" slot-scope="{ item }">
+                                    {{ item.salesChannel.translated.name }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_customer_name %}
+                                <template slot="column-customer.firstName" slot-scope="{ item }">
+                                    {{ item.customer.firstName }} {{ item.customer.lastName }}
+                                </template>
+                            {% endblock %}
+                        {% endblock %}
+                    </custom-bonus-system-booking-list>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_empty_state %}
+                    <sw-empty-state v-if="!isLoading && !total" :title="$tc('custom-bonus-system.list.booking.messageEmpty')"></sw-empty-state>
+                {% endblock %}
+            </div>
+            {% endblock %}
+    </template>
+
+    {% block custom_bonus_system_list_sidebar %}
+        <template #sidebar>
+            <sw-sidebar class="sw-order-list__sidebar">
+                {% block custom_bonus_system_list_sidebar_refresh %}
+                    <sw-sidebar-item
+                            icon="regular-undo"
+                            :title="$tc('custom-bonus-system.list.titleSidebarItemRefresh')"
+                            @click="onRefresh">
+                    </sw-sidebar-item>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_sidebar_filter %}
+                    <sw-sidebar-filter-panel
+                            entity="custom_bonus_system_booking"
+                            :storeKey="storeKey"
+                            :filters="listFilters"
+                            :defaults="defaultFilters"
+                            :activeFilterNumber="activeFilterNumber"
+                            @criteria-changed="updateCriteria">
+                    </sw-sidebar-filter-panel>
+                {% endblock %}
+            </sw-sidebar>
+        </template>
+    {% endblock %}
+</sw-page>
+{% endblock %}

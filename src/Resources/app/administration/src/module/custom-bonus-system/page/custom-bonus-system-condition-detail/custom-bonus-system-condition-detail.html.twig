@@ -1,0 +1,166 @@
+{% block custom_bonus_system_condition_detail %}
+    <sw-page class="custom-bonus-system-condition-detail">
+
+        {% block custom_bonus_system_condition_detail_header %}
+            <template #smart-bar-header>
+                <h2>{{ placeholder(condition, 'name', $tc('custom-bonus-system.detail.main.condition.textHeadline')) }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block custom_bonus_system_condition_detail_actions %}
+            <template #smart-bar-actions>
+
+                {% block custom_bonus_system_condition_detail_actions_abort %}
+                    <sw-button :disabled="conditionIsLoading" v-tooltip.bottom="tooltipCancel" @click="onCancel">
+                        {{ $tc('custom-bonus-system.detail.main.condition.buttonCancel') }}
+                    </sw-button>
+                {% endblock %}
+
+                {% block custom_bonus_system_condition_detail_actions_save %}
+                <sw-button-process
+                        class="custom-bonus-system-condition-detail__save-action"
+                        :isLoading="isLoading"
+                        v-model="isSaveSuccessful"
+                        :disabled="isLoading"
+                        variant="primary"
+                        v-tooltip.bottom="tooltipSave"
+                        @click.prevent="onSave">
+                    {{ $tc('custom-bonus-system.detail.main.condition.buttonSave') }}
+                </sw-button-process>
+                {% endblock %}
+
+            </template>
+        {% endblock %}
+
+        {% block custom_bonus_system_condition_detail_content %}
+            <sw-card-view slot="content">
+
+            {% block custom_bonus_system_condition_detail_base_basic_info_card %}
+                <sw-card :title="$tc('custom-bonus-system.detail.main.condition.cardTitleConditionBaseInfo')" :isLoading="conditionIsLoading">
+                    <template v-if="!conditionIsLoading">
+                        <sw-container class="custom-bonus-system-condition-detail__container"
+                                      columns="repeat(auto-fit, minmax(250px, 1fr)"
+                                      gap="0 30px">
+                            <div class="custom-bonus-system-condition-detail__base-info-wrapper">
+
+                                {% block custom_bonus_system_condition_detail_base_info_field_name %}
+                                    <sw-field type="text"
+                                        :label="$tc('custom-bonus-system.detail.main.condition.labelName')"
+                                        :placeholder="placeholder(condition, 'name', $tc('custom-bonus-system.detail.main.condition.placeholderName'))"
+                                        required
+
+                                        v-model="condition.name">
+                                    </sw-field>
+                                {% endblock %}
+
+                                {% block custom_bonus_system_condition_detail_base_info_field_private %}
+                                    <sw-checkbox-field v-model="condition.active"
+                                                       :label="$tc('custom-bonus-system.detail.main.condition.labelActive', condition.private)"
+                                                       size="small">
+                                    </sw-checkbox-field>
+                                {% endblock %}
+                            </div>
+
+                        </sw-container>
+
+                        <sw-container columns="1fr 1fr" gap="0px 30px">
+                            {% block custom_bonus_system_condition_detail_base_info_valid_from_field %}
+                                <sw-datepicker dateType="datetime-local"
+                                               :label="$tc('custom-bonus-system.detail.main.condition.labelValidFrom')"
+                                               v-model="condition.validFrom">
+                                </sw-datepicker>
+                            {% endblock %}
+
+                            {% block custom_bonus_system_condition_detail_base_info_valid_until_field %}
+                                <sw-datepicker dateType="datetime-local"
+                                               :label="$tc('custom-bonus-system.detail.main.condition.labelValidUntil')"
+                                               v-model="condition.validUntil">
+                                </sw-datepicker>
+                            {% endblock %}
+                        </sw-container>
+
+                        <sw-container columns="1fr" gap="0px 30px">
+                            {% block custom_bonus_system_condition_detail_base_info_condition_type %}
+                                <sw-select-field
+                                    :placeholder="$tc('custom-bonus-system.detail.main.condition.placeholderType')"
+                                    :label="$tc('custom-bonus-system.detail.main.condition.labelType')"
+                                    required
+                                    v-model="condition.type">
+                                    <option value="1">{{ $tc('custom-bonus-system.detail.main.condition.type.excludeProducts') }}</option>
+                                    <option value="2">{{ $tc('custom-bonus-system.detail.main.condition.type.individualBonusFactorForCustomer') }}</option>
+                                    <option value="3">{{ $tc('custom-bonus-system.detail.main.condition.type.individualBonusFactorForProductOrStream') }}</option>
+                                </sw-select-field>
+                            {% endblock %}
+                        </sw-container>
+
+                        <sw-container columns="1fr" gap="0px 30px">
+                            {% block custom_bonus_system_condition_detail_base_info_condition_sub_type %}
+                                <sw-select-field
+                                    :placeholder="$tc('custom-bonus-system.detail.main.condition.placeholderSubTypeExclude')"
+                                    :label="$tc('custom-bonus-system.detail.main.condition.labelSubType')"
+                                    v-model="condition.subType"
+                                    v-if="condition.type == 1">
+                                    <option value="1">{{ $tc('custom-bonus-system.detail.main.condition.subType.excludeForCollect') }}</option>
+                                    <option value="2">{{ $tc('custom-bonus-system.detail.main.condition.subType.excludeForRedeem') }}</option>
+                                </sw-select-field>
+
+                                <sw-select-field
+                                    :placeholder="$tc('custom-bonus-system.detail.main.condition.placeholderSubTypeConversionFactor')"
+                                    :label="$tc('custom-bonus-system.detail.main.condition.labelSubType')"
+                                    v-model="condition.subType"
+                                    v-if="condition.type == 2">
+                                    <option value="1">{{ $tc('custom-bonus-system.detail.main.condition.subType.conversionFactorCollect') }}</option>
+                                    <option value="2">{{ $tc('custom-bonus-system.detail.main.condition.subType.conversionFactorRedeem') }}</option>
+                                </sw-select-field>
+
+                                <sw-select-field
+                                        :placeholder="$tc('custom-bonus-system.detail.main.condition.placeholderSubTypeConversionFactor')"
+                                        :label="$tc('custom-bonus-system.detail.main.condition.labelSubType')"
+                                        v-model="condition.subType"
+                                        v-if="condition.type == 3">
+                                    <option value="1">{{ $tc('custom-bonus-system.detail.main.condition.subType.conversionFactorCollect') }}</option>
+                                </sw-select-field>
+                            {% endblock %}
+                        </sw-container>
+
+                        <sw-container columns="1fr" gap="0px 30px">
+                            {% block custom_bonus_system_condition_detail_base_info_condition_content %}
+                                <sw-number-field
+                                    :label="$tc('custom-bonus-system.detail.main.condition.labelConversionFactorCollect')"
+                                    v-if="condition.subType > 0 && (condition.type == 2 || condition.type == 3)"
+                                    v-model="condition.factor"
+                                    numberType="float"
+                                    :step="null"
+                                    :min="0"
+                                    :max="null"
+                                    :value="1"
+                                    :digits="2"
+                                    :allowEmpty="false">
+                                </sw-number-field>
+                            {% endblock %}
+                        </sw-container>
+
+                    </template>
+                </sw-card>
+            {% endblock %}
+
+
+            {% block custom_bonus_system_condition_detail_base_rule_info_card %}
+                <sw-card :title="$tc('custom-bonus-system.detail.main.condition.cardTitleConditionRuleInfo')" :isLoading="conditionIsLoading">
+                    <template v-if="!conditionIsLoading">
+                        <custom-bonus-system-condition-line-item v-if="condition.type == 1 || condition.type == 3" :condition="condition" :level="0"></custom-bonus-system-condition-line-item>
+
+                        <custom-bonus-system-condition-line-item-in-category v-if="condition.type == 1" :condition="condition" :level="0"></custom-bonus-system-condition-line-item-in-category>
+
+                        <custom-bonus-system-condition-line-item-in-product-stream v-if="condition.type == 1 || condition.type == 3" :condition="condition" :level="0"></custom-bonus-system-condition-line-item-in-product-stream>
+
+                        <custom-bonus-system-condition-customer-group v-if="condition.type == 2" :condition="condition" :level="0"></custom-bonus-system-condition-customer-group>
+                        <custom-bonus-system-condition-customer-number v-if="condition.type == 2" :condition="condition" :level="0"></custom-bonus-system-condition-customer-number>
+                    </template>
+                </sw-card>
+            {% endblock %}
+        </sw-card-view>
+    {% endblock %}
+
+    </sw-page>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% sw_extends '@Storefront/storefront/page/account/_page.html.twig' %}
+
+{% block page_account_main_content %}
+    {% block page_account_bonus %}
+        <div class="account-bonus" id="custom-bonus-system">
+            {% block page_account_bonus_welcome %}
+                <div class="account-welcome">
+                    {% block page_account_bonus_welcome_headline %}
+                        <h1>{{ "custom-bonus-system.account.bonusTitle"|trans|sw_sanitize }}</h1>
+                        <p>{{ "custom-bonus-system.account.bonusWelcome"|trans|sw_sanitize }}</p>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+
+            {% block page_account_bonus_main %}
+                <div class="account-bonus-main">
+                    {% if page.listing.total == 0 %}
+                        {% block page_account_bonus_info_empty %}
+                            {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                type: "warning",
+                                content: "custom-bonus-system.account.bonusInfoEmpty"|trans|sw_sanitize
+                            } %}
+                        {% endblock %}
+                    {% else %}
+                        {% block page_account_bonus_overview %}
+                            <div class="account-bonus-overview">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{{ "custom-bonus-system.account.bonusList.headDateTitle"|trans|sw_sanitize }}</th>
+                                        <th scope="col">{{ "custom-bonus-system.account.bonusList.headPointsTitle"|trans|sw_sanitize }}</th>
+                                        <th scope="col">{{ "custom-bonus-system.account.bonusList.headReasonTitle"|trans|sw_sanitize }}</th>
+                                    </tr>
+                                    </thead>
+                                    {% for bonus in page.listing %}
+                                        <tr>
+                                            <td>{{ bonus.createdAt|date('d.m.Y') }}</td>
+                                            <td>{{ bonus.points }}</td>
+                                            <td>{% if bonus.order %}
+                                                    {{ "custom-bonus-system.account.bonusList.order"|trans|sw_sanitize }} {{ bonus.order.orderNumber }}
+                                                {% elseif bonus.customFields.isExpiryBooking is defined %}
+                                                    {{ 'custom-bonus-system.account.bonusList.expiryBooking'|trans|sw_sanitize }}
+                                                {% else %}
+                                                    {{ bonus.description }}
+                                                {% endif %}
+                                                {% if bonus.approved != 1 %}
+                                                    {{ "custom-bonus-system.account.bonusList.notApproved"|trans|sw_sanitize }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+                            {% set criteria = page.listing.criteria %}
+
+                            {% set totalPages = (page.listing.total/criteria.limit)|round(0,'ceil') %}
+
+                            {% if totalPages > 1 %}
+                                {% set formAjaxSubmitOptions = {
+                                    replaceSelectors: ".account-bonus-main",
+                                    submitOnChange: true
+                                } %}
+
+                                {% block page_account_bonus_paging_form %}
+                                    <div class="account-orders-pagination">
+                                        <form class="account-orders-pagination-form"
+                                              action="{{ path('frontend.CustomBonusSystem.index') }}"
+                                              method="post"
+                                              data-form-ajax-submit="true"
+                                              data-form-ajax-submit-options='{{ formAjaxSubmitOptions|json_encode }}'>
+
+                                            {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                                                entities: page.listing,
+                                                criteria: criteria
+                                            }  %}
+                                        </form>
+                                    </div>
+                                {% endblock %}
+                            {% endif %}
+                        {% endblock %}
+                    {% endif %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% block custom_bonus_system_points_expiration_email_notification_unsubscribe %}
+        {% set isAutomaticEMailPointExpiration = customBonusSystem.automaticEMailPointExpiration %}
+        {% set canCustomerUnsubscribe = customBonusSystem.customerCanUnsubscribeAutomaticEMailPointExpiration %}
+
+        {% if isAutomaticEMailPointExpiration and canCustomerUnsubscribe %}
+            <div class="mt-5 mb-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            {{ "custom-bonus-system.account.pointsAccount.pointsExpiration.notification.label"|trans|sw_sanitize }}
+                        </h2>
+
+                        <div class="points-expiration-unsubscribe-wrapper">
+                            {% sw_include "@Storefront/storefront/page/account/points-expiration-notification-subscribe.html.twig" with {
+                                customer: context.customer
+                            } %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

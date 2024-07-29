@@ -1,0 +1,160 @@
+{
+    "custom-bonus-system": {
+        "customRule": {
+            "customerHasBonusPoints": {
+                "label": "Kunde hat Bonus Punkte"
+            },
+            "customerBonusPoints": {
+                "label": "Bonus Punkte Kunde"
+            }
+        },
+        "general": {
+            "menuItem": "Bonus System",
+            "bonusOrderMenuItem": "Buchungen",
+            "customerMenuItem":  "Kunden",
+            "ruleMenuItem": "Regeln",
+            "conditionMenuItem": "Bedingungen",
+            "bonusProductMenuItem": "Bonus Produkte",
+            "bonusDashboardMenuItem": "Dashboard"
+        },
+        "list": {
+            "booking": {
+                "messageEmpty": "Es wurden keine Einträge gefunden. Sie können die Filter Einstellungen freigegeben/ nicht freigegeben und Bestellung/ keine Bestellung nutzen, um die Buchungen zu filtern.",
+                "approve": "Freigeben",
+                "textOverview": "Buchungen Übersicht",
+                "columnCreateDate": "Datum",
+                "columnSalesChannelName": "Verkaufskanal",
+                "columnCustomerName": "Name",
+                "columnPoints": "Punkte",
+                "columnOrder": "Bestellung",
+                "columnDescription": "Grund",
+                "columnApproved": "Freigegeben",
+                "titleSidebarItemFilter": "Filter",
+                "titleSidebarItemFilterApproved": "Freigegeben",
+                "titleSidebarItemFilterIsOrder": "Ist Bestellung",
+                "expiryBooking": "Abgelaufene Punkte"
+            },
+            "userPoint": {
+                "textOverview": "Kunden Übersicht",
+                "bookLink": "Punkte buchen",
+                "columnCustomerEmail": "E-Mail",
+                "columnPoints": "Punkte",
+                "viewDetails": "Anzeigen",
+                "modal": {
+                    "title": "Hinzufügen/ Entfernen von Punkten",
+                    "bookReason": "Grund",
+                    "bookPoints": "Punkte",
+                    "bookSubmit": "Jetzt buchen",
+                    "formError": "Fehler: Bitte prüfen Sie die Formulareingaben."
+                }
+            },
+            "condition": {
+                "textOverview": "Bedingungen Übersicht",
+                "buttonAddCondition": "Bedingung hinzufügen",
+                "messageEmpty": "Keine Einträge gefunden",
+                "columnName": "Name",
+                "columnActive": "Aktiv",
+                "columnValidFrom": "Gültig von",
+                "columnValidUntil": "Gültig bis"
+            },
+            "bonusProduct": {
+                "messageEmpty": "Keine Einträge gefunden. Erstellen Sie hier Ihr erstes Bonus Produkt.",
+                "textOverview": "Bonus Produkt Übersicht",
+                "buttonAddBonusProduct": "Neues Produkt",
+                "columnName": "Name",
+                "columnActive": "Aktiv",
+                "columnValidFrom": "Gültig von",
+                "columnValidUntil": "Gültig bis"
+            },
+            "dashboard": {
+                "textOverview": "Dashboard Überblick",
+                "salesChannelsLabel": "Statistik",
+                "topEarnedPointsLabel": "Top 5 Punkte Verdienst",
+                "topCreditPointsLabel": "Top 5 Punkte Guthaben",
+                "salesChannelLabel": "Verkaufskanal",
+                "customerLabel": "Kunde",
+                "pointsEarnedLabel": "Punkte verdient",
+                "pointsSpentLabel": "Punkte ausgegeben",
+                "pointsNotApprovedLabel": "Punkte nicht freigegeben",
+                "pointsCreditLabel": "Guthaben",
+                "showAllLabel": "Alle anzeigen",
+                "filterAllLabel": "Seit Beginn",
+                "filterlast30DaysLabel": "Letzte 30 Tage",
+                "filterlast14DaysLabel": "Letzte 14 Tage",
+                "filterlast7DaysLabel": "Letzte 7 Tage",
+                "filterlast24HoursLabel": "Letzte 24 Stunden",
+                "filterSinceYesterdayLabel": "Seit gestern"
+            }
+        },
+        "detail": {
+            "main": {
+                "labelAddNewRule": "Neue Regel anlegen",
+                "condition": {
+                    "cardTitleConditionBaseInfo": "Basis Einstellungen",
+                    "textHeadline": "Bonus Bedingung",
+                    "buttonCancel": "Abbrechen",
+                    "buttonSave": "Speichern",
+                    "labelName": "Name",
+                    "placeholderName": "Name",
+                    "labelActive": "Aktiv",
+                    "labelValidFrom": "Gültig von",
+                    "labelValidUntil": "Gültig bis",
+                    "labelType": "Bedingung Typ",
+                    "placeholderType": "Bitte wählen Sie einen Typ",
+                    "labelSubType": "Typ der Änderung",
+                    "placeholderSubTypeConversionFactor": "Bitte wählen Sie einen Typ der Punkte Änderung",
+                    "placeholderSubTypeExclude": "Bitte wählen Sie eine Art",
+                    "type": {
+                        "excludeProducts": "Produkte für Bonus Punkte ausschließen",
+                        "individualBonusFactorForCustomer": "Individueller Bonus Faktor für Kunde oder Kundengruppe",
+                        "individualBonusFactorForProductOrStream": "Individueller Bonus Faktor für Produkt oder Produktgruppe"
+                    },
+                    "subType": {
+                        "conversionFactorCollect": "Umrechnungsfaktor Punkte sammeln",
+                        "conversionFactorRedeem": "Umrechnungsfaktor Punkte einlösen",
+                        "excludeForRedeem": "Ausschließen für das Punkte einlösen",
+                        "excludeForCollect": "Ausschließen für das Punkte sammeln"
+                    },
+                    "labelConversionFactorCollect": "Umrechnungsfaktor (1 EUR = ? Punkte)",
+                    "cardTitleConditionRuleInfo": "Regeln",
+                    "cardTitleConditionRule": {
+                        "labelConditionRuleProduct": "Produkte",
+                        "labelConditionRuleStream": "Produkt Gruppen",
+                        "labelConditionRuleCategory": "Kategorien",
+                        "labelConditionRuleCustomerGroup": "Kundengruppen",
+                        "labelConditionRuleCustomerNumber": "Kundennummern"
+                    }
+                },
+                "bonusProduct": {
+                    "textHeadline": "Bonus Produkt Detail",
+                    "buttonCancel": "Abbrechen",
+                    "buttonSave": "Speichern",
+                    "cardTitleBonusProductBaseInfo": "Basis Einstellungen",
+                    "product": "Produkt",
+                    "placeholderProduct": "Produkt wählen",
+                    "labelActive": "Aktiv",
+                    "labelValidFrom": "Gültig von",
+                    "labelValidUntil": "Gültig bis",
+                    "placeholderType": "Bitte wählen Sie einen Kostentyp",
+                    "labelOnlyBuyableWithPoints": "Nur mit Punkten erwerbbar",
+                    "labelType": "Kosten",
+                    "type": {
+                        "usePluginSettingFactor": "Umrechnungsfaktor Punkte einlösen von Plugin Einstellungen",
+                        "pointValue": "Fester Punktewert"
+                    },
+                    "labelValue": "Anzahl Punkte",
+                    "labelMaxOrderQuantity": "Maximalabnahme"
+                },
+                "customer": {
+                    "bookPoints": "Punkte buchen",
+                    "textHeadline": "Kunden Details",
+                    "buttonCancel": "Abbrechen",
+                    "points": "Punkte Guthaben",
+                    "bookingList": {
+                        "order": "Bestellung"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/page/checkout/address/register.html.twig' %}
+
+{% block page_checkout_register_personal_guest %}
+    <div data-custom-register-guest-hint="true"
+         data-form-register-guest-hint-toggle-target=".custom-register-guest-hint"
+         data-custom-register-guest-hint-trigger-selector="#personalGuest"
+    >
+        {{ parent() }}
+
+        {% set customBonusSystemPoints = page.extensions.customBonusSystemPoints %}
+        {% set points = customBonusSystemPoints.points %}
+        {% set customBonusSystem = page.extensions.customBonusSystem %}
+        {% if customBonusSystem.useBonusSystem and points > 0 %}
+
+            <div class="custom-register-guest-hint{% if config('core.loginRegistration.createCustomerAccountDefault') == 1 %} d-none{% endif %}">
+                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                    type: 'info',
+                    content: 'custom-bonus-system.checkout.registerGuestHint'|raw|trans({'%points%': points})
+                } %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% block custom_bonus_system_customer_detail_info %}
+    <sw-container class="custom-bonus-system-customer-detail-info" columns="repeat(auto-fit, minmax(250px, 1fr)" gap="0px 15px">
+        {% block custom_bonus_system_customer_detail_info_metadata %}
+            {% block custom_bonus_system_customer_detail_info_metadata_left %}
+                <sw-loader v-if="isLoading"></sw-loader>
+
+                <div v-else class="custom-bonus-system-customer-detail-info-columns">
+                    {% block custom_bonus_system_customer_detail_metadata_active %}
+                        <sw-description-list>
+                            {% block custom_bonus_system_customer_detail_metadata_active_label %}
+                                <dt class="custom-bonus-system-customer-detail-info__label">{{ $tc('sw-customer.baseInfo.labelActive') }}</dt>
+                            {% endblock %}
+
+                            {% block custom_bonus_system_customer_detail_metadata_active_content %}
+                            <dd class="custom-bonus-system-customer-detail__label-is-active">
+                                {{ $tc('sw-customer.baseInfo.contentActive', customer.active) }}
+                            </dd>
+                            {% endblock %}
+                        </sw-description-list>
+                        {% endblock %}
+
+                        {% block custom_bonus_system_customer_detail_metadata_language %}
+                        <sw-description-list>
+                            {% block custom_bonus_system_customer_detail_metadata_language_label %}
+                            <dt class="custom-bonus-system-customer-detail-info__label">{{ $tc('sw-customer.baseInfo.labelLanguage') }}</dt>
+                            {% endblock %}
+
+                            {% block custom_bonus_system_customer_detail_metadata_language_content %}
+                            <dd>
+                            {{ customerLanguageName }}
+                                </dd>
+                            {% endblock %}
+                        </sw-description-list>
+                    {% endblock %}
+
+                </div>
+            {% endblock %}
+
+            {% block pcustom_bonus_system_customer_detail_info_metadata_right %}
+                <div class="custom-bonus-system-customer-detail-info-columns">
+                    {% block custom_bonus_system_customer_detail_metadata_customer_group %}
+                        <sw-description-list>
+                            {% block custom_bonus_system_customer_detail_metadata_customer_group_label %}
+                                <dt class="custom-bonus-system-customer-detail-info__label">{{ $tc('sw-customer.baseInfo.labelCustomerGroup') }}</dt>
+                            {% endblock %}
+
+                            {% block custom_bonus_system_customer_detail_metadata_customer_group_content %}
+                            <dd>
+                            {{ customer.group.translated.name }}
+                                </dd>
+                            {% endblock %}
+
+                        </sw-description-list>
+                    {% endblock %}
+
+                    {% block custom_bonus_system_customer_detail_metadata_customer_number %}
+                        <sw-description-list>
+                            <dt class="custom-bonus-system-customer-detail-info__label">{{ $tc('sw-customer.baseInfo.labelCustomerNumber') }}</dt>
+                            <dd class="custom-bonus-system-customer-detail__label-customer-number">
+                                {{ customer.customerNumber }}
+                            </dd>
+                        </sw-description-list>
+                    {% endblock %}
+
+                </div>
+            {% endblock %}
+        {% endblock %}
+    </sw-container>
+{% endblock %}

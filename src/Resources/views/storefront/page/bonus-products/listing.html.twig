@@ -1,0 +1,19 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    {% block page_search %}
+        <div class="cms-page bonus-all-products-page">
+            <div class="cms-sections">
+                <div class="cms-section pos-0 cms-section-default">
+                    <div class="cms-section-default boxed">
+                        {% sw_include '@Storefront/storefront/component/bonus-product/product-listing.html.twig' with { searchResult: searchResult } %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}
+
+
+

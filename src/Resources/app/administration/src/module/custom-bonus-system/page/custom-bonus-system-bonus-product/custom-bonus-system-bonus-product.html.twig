@@ -1,0 +1,107 @@
+{% block custom_bonus_system_list %}
+<sw-page class="custom-bonus-system-bonus-product">
+    {% block sw_customer_list_search_bar %}
+    {% endblock %}
+
+    {% block custom_bonus_system_list_smart_bar_header %}
+        <template #smart-bar-header>
+            {% block custom_bonus_system_list_smart_bar_header_title %}
+                <h2>
+                    {% block custom_bonus_system_list_smart_bar_header_title_text %}
+                        {{ $tc('custom-bonus-system.list.bonusProduct.textOverview') }}
+                        {% endblock %}
+
+                        {% block custom_bonus_system_list_smart_bar_header_amount %}
+                        <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                        ({{ total }})
+                        </span>
+                    {% endblock %}
+                </h2>
+            {% endblock %}
+        </template>
+    {% endblock %}
+
+    {% block custom_bonus_system_list_smart_bar_actions %}
+        <template slot="smart-bar-actions">
+            {% block custom_bonus_system_list_smart_bar_actions_add %}
+                <sw-button
+                    class="custom-bonus-system-list__button-add-promotion"
+                    :routerLink="{ name: 'custom.bonus.system.bonusproductcreate' }"
+                    variant="primary">
+                    {{ $tc('custom-bonus-system.list.bonusProduct.buttonAddBonusProduct') }}
+                </sw-button>
+            {% endblock %}
+        </template>
+    {% endblock %}
+
+    <template #content>
+            {% block custom_bonus_system_list_content %}
+            <div class="custom-bonus-system-bonus-product-list__content">
+                {% block custom_bonus_system_component_navigation %}
+                    <custom-bonus-system-navigation></custom-bonus-system-navigation>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_grid %}
+                    <sw-entity-listing ref="customBonusSystemBonusProductGrid"
+                                       v-if="bonusProduct"
+                                       class="sw-product-list-grid"
+                                       :items="bonusProduct"
+                                       :columns="columns"
+                                       :repository="repository"
+                                       :showSelection="true"
+                                       :allowDelete="true"
+                                       detailRoute="custom.bonus.system.bonusproductdetail"
+                                       :allowEdit="true"
+                                       :showSettings="true"
+                                       :isLoading="isLoading"
+                                       >
+                        {% block custom_bonus_system_list_grid_columns %}
+                            {% block custom_bonus_system_list_grid_columns_bonusProduct_name %}
+                                <template slot="column-product.name" slot-scope="{ item }">
+                                    <sw-product-variant-info :variations="item.product.variation">
+                                        {{ getProductTitle(item.product) }}
+                                    </sw-product-variant-info>
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_bonusProduct_active %}
+                                <template #column-active="{ item }">
+                                    <sw-icon v-if="item.active" name="regular-checkmark-xs" small class="is--active"/>
+                                    <sw-icon v-else name="regular-times-s" small class="is--inactive"/>
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_bonusProduct_validFrom %}
+                                <template #column-validFrom="{ item }">
+                                    {{ item.validFrom | date({hour: '2-digit', minute: '2-digit'}) }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_bonusProduct_validUntil %}
+                                <template #column-validUntil="{ item }">
+                                    {{ item.validUntil | date({hour: '2-digit', minute: '2-digit'}) }}
+                                </template>
+                            {% endblock %}
+                        {% endblock %}
+                    </sw-entity-listing>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_empty_state %}
+                    <sw-empty-state v-if="!isLoading && !total" :title="$tc('custom-bonus-system.list.bonusProduct.messageEmpty')"></sw-empty-state>
+                {% endblock %}
+            </div>
+            {% endblock %}
+    </template>
+
+    {% block custom_bonus_system_list_sidebar %}
+        <template #sidebar>
+            <sw-sidebar>
+                {% block custom_bonus_system_list_sidebar_refresh %}
+                    <sw-sidebar-item
+                            icon="regular-undo"
+                            :title="$tc('custom-bonus-system.list.titleSidebarItemRefresh')"
+                            @click="onRefresh">
+                    </sw-sidebar-item>
+                {% endblock %}
+            </sw-sidebar>
+        </template>
+    {% endblock %}
+</sw-page>
+{% endblock %}

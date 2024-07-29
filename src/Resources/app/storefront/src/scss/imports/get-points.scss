@@ -1,0 +1,159 @@
+.bonus-system-get-points-container {
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 12px;
+
+    .bonus-brand {
+        border: 2px solid #ffffff;
+        background-color: #f1c40f;
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        text-align: center;
+        color: #ffffff;
+        font-weight: bold;
+        float: left;
+        font-size: 16px;
+        padding-left: 4px;
+        position: relative;
+    }
+    .bonus-brand.has-icon {
+        border: 0;
+        font-size: 0;
+        padding-left: 0;
+        .rounded-circle {
+            width: 50px;
+            height: 50px;
+        }
+    }
+    .bonus-text {
+        color: #ae8e0a;
+        float: left;
+
+        @media screen and (min-width: 992px) and (max-width: 1115px) {
+            width: 235px;
+            line-height: 24px
+        }
+        @media screen and (min-width: 415px) and (max-width: 460px) {
+            width: 235px;
+            line-height: 24px
+        }
+        @media screen and (min-width: 355px) and (max-width: 415px) {
+            width: 235px;
+            line-height: 24px
+        }
+        @media screen and (max-width: 354px) {
+            width: 210px;
+            line-height: 24px
+        }
+    }
+
+    &.bonus-teaser-compact {
+        line-height: 40px;
+        margin-top: 10px;
+
+        .bonus-brand {
+            width: 40px;
+            height: 40px;
+            font-size: 25px;
+            line-height: 38px;
+
+            &.has-icon {
+                .rounded-circle {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+
+        .bonus-text {
+            @media screen and (min-width: 1200px) and (max-width: 1280px) {
+                width: 151px;
+                line-height: 20px
+            }
+            @media screen and (min-width: 576px) and (max-width: 650px) {
+                width: 139px;
+                line-height: 20px
+            }
+            @media screen and (max-width: 380px) {
+                width: 192px;
+                line-height: 40px
+            }
+            @media screen and (min-width: 355px) and (max-width: 365px) {
+                width: 151px;
+                line-height: 20px
+            }
+            @media screen and (max-width: 354px) {
+                width: 146px;
+                line-height: 20px
+            }
+        }
+    }
+}
+
+// products list
+.product-box {
+    .bonus-system-get-points-container {
+        .bonus-text {
+            @media screen and (min-width: 1200px) and (max-width: 1280px) {
+                width: 144px;
+                line-height: 20px
+            }
+            @media screen and (min-width: 992px) and (max-width: 1115px) {
+                width: 185px;
+                line-height: unset;
+            }
+            @media screen and (min-width: 651px) and (max-width: 662px) {
+                width: 144px;
+                line-height: 20px
+            }
+            @media screen and (min-width: 415px) and (max-width: 460px) {
+                width: 240px;
+                line-height: unset;
+            }
+            @media screen and (min-width: 381px) and (max-width: 414px) {
+                width: 205px;
+                line-height: unset;
+            }
+            @media screen and (min-width: 355px) and (max-width: 365px) {
+                width: 144px;
+            }
+            @media screen and(max-width: 354px) {
+                width: 144px;
+            }
+        }
+    }
+}
+
+.bonus-system-is-loading {
+    .bonus-brand {
+        padding-left: unset;
+
+        .bonus-brand-logo {
+            display: none;
+        }
+
+        .bonus-brand-spinner {
+            display: block;
+        }
+    }
+
+    .bonus-text {
+        opacity: .5;
+    }
+}
+
+.bonus-brand-spinner {
+    display: none;
+}
+
+.product-badges {
+    .badge-bonus-product {
+        margin-left: 5px;
+        height: auto;
+        line-height: 1;
+        background-color: #fbf5db;
+        color: #ae8e0a;
+    }
+}

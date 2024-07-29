@@ -1,0 +1,48 @@
+{% sw_extends '@Storefront/storefront/page/account/sidebar.html.twig' %}
+
+{% set customBonusSystem = page.header.extensions.customBonusSystem %}
+
+{% block page_account_sidebar_link_home %}
+    {% block page_account_sidebar_link_left_menu_bonus %}
+        {% if customBonusSystem.useBonusSystem %}
+            <div class="bonus-system-account-left-menu">
+                <div class="sidebar-bonus-header">
+                    {{ page.customBonusSystemPoints.wantToRedeem }} {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+                    <div class="bonus-points-sum">
+                        {{ page.header.customBonusSystemPoints }}
+                    </div>
+                </div>
+                <div class="sidebar-bonus-menu list-group-flush">
+                    <a class="bonussystem-points-link list-group-item list-group-item-action" href="{{ path('frontend.CustomBonusSystem.index') }}" title="{{ "custom-bonus-system.sidebar.index_link"|trans }}" rel="nofollow">
+                        {{ "custom-bonus-system.sidebar.index_link"|trans }}
+                        <i class="icon--arrow-right right"></i>
+                    </a>
+                </div>
+                <div class="sidebar-bonus-menu bonus-products list-group-flush">
+                    <a class="bonussystem-bonus-products list-group-item list-group-item-action" href="{{ path('frontend.CustomBonusSystem.listing') }}" title="{{ "custom-bonus-system.sidebar.bonus_products_link"|trans }}" rel="nofollow">
+                        {{ "custom-bonus-system.sidebar.bonus_products_link"|trans }}
+                        <i class="icon--arrow-right right"></i>
+                    </a>
+                </div>
+                {% sw_include '@CustomBonusSystem/storefront/component/account/sidebar-block.html.twig' %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_account_sidebar_link_orders %}
+    {{ parent() }}
+
+    {% block page_account_sidebar_link_header_menu_bonus %}
+        {% if customBonusSystem.useBonusSystem and not customBonusSystem.showPointsInHeader %}
+            <div class="header-menu-bonus">
+                <a href="{{ path('frontend.CustomBonusSystem.index') }}"
+                   title="{{ "custom-bonus-system.sidebar.index_link"|trans }}"
+                   class="list-group-item list-group-item-action account-aside-item{% if controllerName is same as('Bonus') %} is-active{% endif %}">
+                    {% if page.header.customBonusSystemLoggedIn and page.header.customBonusSystemPoints > 0 %}{{ page.header.customBonusSystemPoints }} {% endif %}{{ "custom-bonus-system.sidebar.index_link"|trans }}
+                </a>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

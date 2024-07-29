@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/buy-widget-price.html.twig' %}
+
+{% if page.product.customBonusSystemBonusProduct and page.product.customBonusSystemOnlyBuyableWithPoints %}
+    {% set onlyBuyableWithPoints = 1 %}
+{% else %}
+    {% set onlyBuyableWithPoints = 0 %}
+{% endif %}
+
+{% if page.customBonusSystemBonusProduct %}
+    {% set buyableWithPoints = 1 %}
+    {% set bonusPoints = page.product.customBonusSystemPointCosts %}
+    {% if context.customer %}
+        {% set loggedIn = 1 %}
+    {% endif %}
+{% else %}
+    {% set buyableWithPoints = 0 %}
+{% endif %}
+
+{% block page_product_detail_price_inner %}
+    {% if onlyBuyableWithPoints == 0 %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

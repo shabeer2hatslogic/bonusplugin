@@ -1,0 +1,12 @@
+.custom-bonus-system-customer-detail {
+  &__booking-list-table {
+    .sw-card {
+      max-width: none;
+
+      &__content {
+        padding: unset;
+        overflow: hidden;
+      }
+    }
+  }
+}

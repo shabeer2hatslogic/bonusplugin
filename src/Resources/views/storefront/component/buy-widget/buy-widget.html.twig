@@ -1,0 +1,39 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+{% set customBonusSystem = page.extensions.customBonusSystem %}
+
+{% if page.product.customBonusSystemBonusProduct and page.product.customBonusSystemOnlyBuyableWithPoints %}
+    {% set onlyBuyableWithPoints = 1 %}
+{% else %}
+    {% set onlyBuyableWithPoints = 0 %}
+{% endif %}
+
+{% if page.product.customBonusSystemBonusProduct %}
+    {% set buyableWithPoints = 1 %}
+    {% set bonusPoints = page.product.customBonusSystemPointCosts %}
+    {% if context.customer %}
+        {% set loggedIn = 1 %}
+    {% endif %}
+{% else %}
+    {% set buyableWithPoints = 0 %}
+{% endif %}
+
+{% block buy_widget_tax %}
+    {% if onlyBuyableWithPoints == 0 %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block buy_widget_ordernumber_container %}
+    {{ parent() }}
+     {% block page_product_detail_ordernumber_container_bonus_get_points %}
+        {% if customBonusSystem.useBonusSystem and not onlyBuyableWithPoints %}
+            {% sw_include '@Storefront/storefront/component/bonus/product-detail/get-points.html.twig'  with {customBonusSystemPoints: page.customBonusSystemPoints.get } %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
+{% block buy_widget_price %}
+    {% if onlyBuyableWithPoints == 0 %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

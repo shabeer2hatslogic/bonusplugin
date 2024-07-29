@@ -1,0 +1,62 @@
+{% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
+{% block layout_head_stylesheet %}
+    {{ parent() }}
+    <style type="text/css">
+        {% set badgeBackgroundColor = config('CustomBonusSystem.config.badgeBackgroundColor') %}
+        {% set signBackgroundColor = config('CustomBonusSystem.config.signBackgroundColor') %}
+        {% set signColor = config('CustomBonusSystem.config.signColor') %}
+        {% set pointTextColor = config('CustomBonusSystem.config.pointTextColor') %}
+        {% set sliderPointColor = config('CustomBonusSystem.config.sliderPointColor')  %}
+        {% if badgeBackgroundColor %}
+            .bonus-system-points-container,.bonus-system-points-header-container  {
+                background-color: {{ badgeBackgroundColor }} !important;
+            }
+            .badge-bonus-product {
+                {% if signColor %}
+                    color: {{ signColor }} !important;
+                {% endif %}
+                background-color: {{ badgeBackgroundColor }} !important;
+            }
+            .sidebar-bonus-header {
+                background-color: {{ badgeBackgroundColor }} !important;
+            }
+        {% endif %}
+
+        .bonus-brand {
+            {% if signBackgroundColor %}
+                background-color: {{ signBackgroundColor }} !important;
+            {% endif %}
+            {% if signColor %}
+                color: {{ signColor }} !important;
+            {% endif %}
+        }
+        {% if pointTextColor %}
+            .bonus-system-get-points-container{
+                border: solid 1px {{ pointTextColor }} !important
+            }
+            .bonus-text {
+                color: {{ pointTextColor }} !important;
+            }
+            .sidebar-bonus-header {
+                color: {{ pointTextColor }} !important;
+            }
+            .bonus-system-points-header-container .bonus-text .nav-link.dropdown-toggle {
+                color: {{ pointTextColor }} !important;
+            }
+            .bonus-system-account-left-menu .sidebar-bonus-header .bonus-you-have {
+                color: {{ pointTextColor }} !important;
+            }
+            .bonus-system-account-left-menu .sidebar-bonus-header .bonus-you-have-points {
+                color: {{ pointTextColor }} !important;
+            }
+            .bonus-system-points-header-container .bonus-text .nav-link.without-dropdown-toggle {
+                color: {{ pointTextColor }} !important;
+            }
+        {% endif %}
+        {% if sliderPointColor %}
+        .bonus-slider-container .noUi-horizontal .noUi-handle {
+            background-color: {{ sliderPointColor }} !important;
+        }
+        {% endif %}
+    </style>
+{% endblock %}

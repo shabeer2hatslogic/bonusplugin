@@ -1,0 +1,38 @@
+.product-box {
+    .bonus-system-points-container {
+        background-color: #fbf5db;
+        margin-left: 20px;
+        border-radius: 4px;
+        display: block;
+
+        .bonus-brand {
+            border: 2px solid #ffffff;
+            background-color: #f1c40f;
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            text-align: center;
+            color: #ffffff;
+            font-weight: bold;
+            float: left;
+            font-size: 19px;
+            padding-left: 2px;
+            left: -20px;
+            position: relative;
+        }
+        .bonus-text {
+            color: #ae8e0a;
+            float: left;
+            width: 160px;
+        }
+        .bonus-brand.has-icon {
+            border: 0;
+            font-size: 0;
+            padding-left: 0;
+            .rounded-circle {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+}

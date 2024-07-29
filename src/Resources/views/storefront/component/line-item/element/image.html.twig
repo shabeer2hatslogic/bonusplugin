@@ -1,0 +1,12 @@
+{% sw_extends '@Storefront/storefront/component/line-item/element/image.html.twig' %}
+
+{% block component_line_item_image %}
+    {% if lineItem.payload.customBonusSystem %}
+        <div class="product-badges">
+            <div class="badge-lg badge-bonus-product">
+                <span class="bonus-text">BONUS</span>
+            </div>
+        </div>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

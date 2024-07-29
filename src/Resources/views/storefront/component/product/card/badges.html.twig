@@ -1,0 +1,20 @@
+{% sw_extends '@Storefront/storefront/component/product/card/badges.html.twig' %}
+
+{% block component_product_badges_new %}
+    {% block product_custom_bonus_system_badge_points %}
+        {% if product.customBonusSystemPointCosts and (context.customer or product.customBonusSystemOnlyBuyableWithPoints ) %}
+            {% set displayFrom = product.calculatedPrices.count > 1 %}
+
+            <div class="badge bonus-system-points-container">
+                {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+                <div class="bonus-text">
+                    {% if displayFrom and not product.customBonusSystemStaticPoint %}
+                        {# { "listing.listingTextFrom"|trans|sw_sanitize }#}
+                    {% endif %}
+                    {{ product.customBonusSystemPointCosts }}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+    {{ parent() }}
+{% endblock %}

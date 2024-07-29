@@ -1,0 +1,13 @@
+Hallo {{ customer.salutation ? customer.salutation.letterName : '' }} {{ customer.firstName }} {{ customer.lastName }},
+
+{{ numberPointsExpire }} Bonus Punkte laufen in {{ days }} Tagen ab. Insgesamt haben Sie {{ numberPoints }}.
+Besuchen Sie jetzt unseren Shop und nutzen Ihre Punkte für eine Vergünstigung beim nächsten Einkauf.
+
+Den aktuellen Status Ihres Punkte Kontos können Sie jederzeit auf unserer Webseite im  Bereich "Mein Konto" abrufen: {{ rawUrl('frontend.account.home.page', {}, salesChannel.domains|first.url) }}
+
+Für Rückfragen stehen wir Ihnen jederzeit gerne zur Verfügung.
+
+Viele Grüße
+Ihr Team von {{ salesChannel.name }}
+
+Wenn Sie diese E-Mail nicht länger erhalten möchte, so können Sie sich unter folgender URL abmelden: {{ rawUrl('frontend.CustomBonusSystem.index', {}, salesChannel.domains|first.url) }}

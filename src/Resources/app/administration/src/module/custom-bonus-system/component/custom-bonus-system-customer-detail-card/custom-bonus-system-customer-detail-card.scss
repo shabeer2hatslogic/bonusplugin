@@ -1,0 +1,22 @@
+.custom-bonus-system-customer-detail-card {
+    max-width: none;
+    .custom-bonus-system-customer-detail {
+         &__metadata-price {
+            .second-col {
+                text-align: right;
+                padding-left: 20px;
+            }
+        }
+
+        &__book-points-link {
+            font-size: 16px;
+
+            .sw-external-link__icon {
+                display: none;
+            }
+        }
+    }
+}
+.custom-individual-offer-base-card__metadata-item{
+    line-height: 2;
+}

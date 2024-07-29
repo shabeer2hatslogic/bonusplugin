@@ -1,0 +1,55 @@
+{% block custom_bonus_system_flow_builder_change_points_modal %}
+    <sw-modal
+            class="change-points-modal"
+            :title="$tc('swag-example-plugin.titleCreateTag')"
+            @modal-close="onClose"
+    >
+        {% block custom_bonus_system_flow_builder_change_points_modal_description %}
+            <sw-text-field
+                    v-model="description"
+                    :copyable="true"
+                    :copyableTooltip="false"
+                    :label="$tc('custom-bonus-system.flow-builder.change-points.label-description')"
+            />
+        {% endblock %}
+
+        {% block custom_bonus_system_flow_builder_change_points_modal_points %}
+            <sw-number-field
+                    v-model="points"
+                    numberType="int"
+                    :step="1"
+                    :max="null"
+                    :value="0"
+                    :digits="0"
+                    :fillDigits="false"
+                    :allowEmpty="false"
+                    :label="$tc('custom-bonus-system.flow-builder.change-points.label-points')"
+            />
+        {% endblock %}
+
+        {% block custom_bonus_system_flow_builder_change_points_modal_footer %}
+            <template #modal-footer>
+                {% block custom_bonus_system_flow_builder_change_points_modal_footer_cancel_button %}
+                    <sw-button
+                            class="change-points-modal__cancel-button"
+                            size="small"
+                            @click="onClose"
+                    >
+                        {{ $tc('global.default.cancel') }}
+                    </sw-button>
+                {% endblock %}
+
+                {% block custom_bonus_system_flow_builder_change_points_modal_footer_save_button %}
+                    <sw-button
+                            class="change-points-modal-modal__save-button"
+                            variant="primary"
+                            size="small"
+                            @click="onAddAction"
+                    >
+                        {{ $tc('custom-bonus-system.flow-builder.change-points.button-save-action') }}
+                    </sw-button>
+                {% endblock %}
+            </template>
+        {% endblock %}
+    </sw-modal>
+{% endblock %}

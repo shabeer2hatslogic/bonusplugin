@@ -1,0 +1,44 @@
+{
+    "name": "custom-bonus-system/custom-bonus-system",
+    "version": "4.0.17",
+    "type": "shopware-platform-plugin",
+    "description": "Bonus system for Shopware 6",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Werkmit",
+            "homepage": "https://werkmit.de",
+            "role": "Manufacturer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CustomBonusSystem\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "CustomBonusSystem\\CustomBonusSystem",
+        "copyright": "(c) by Werkmit",
+        "label": {
+            "de-DE": "Benutzerdefiniertes Bonussystem",
+            "en-GB": "Custom Bonus system"
+        },
+        "description": {
+            "de-DE": "Für jeden Einkauf Bonuspunkte sammeln und bei späteren Einkäufen einlösen.",
+            "en-GB": "Collect bonus points for every purchase and redeem on checkout"
+        },
+        "manufacturerLink": {
+            "de-DE": "https://store.shopware.com/werkmit.html",
+            "en-GB": "https://store.shopware.com/en/werkmit.html"
+        },
+        "supportLink": {
+            "de-DE": "https://werkmit.de/kontakt.html",
+            "en-GB": "https://werkmit.de/kontakt.html"
+        }
+    },
+    "require": {
+        "shopware/core": "6.5.*",
+        "shopware/storefront": "6.5.*",
+        "shopware/administration": "*"
+    }
+}

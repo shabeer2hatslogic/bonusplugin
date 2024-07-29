@@ -1,0 +1,42 @@
+{% block custom_bonus_system_points_expiration_email_notification_subscribe_form %}
+    {% if pointsExpirationNotification.messages|length > 0 %}
+        <div class="newsletter-alerts">
+            {% for message in pointsExpirationNotification.messages %}
+                {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with { 'type': message.type, 'content': message.text} %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% set canSendPointsExpirationNotification = not customer.extensions.customBonusSystemUserPoint %}
+    {% if customer.extensions.customBonusSystemUserPoint %}
+        {% set canSendPointsExpirationNotification = customer.extensions.customBonusSystemUserPoint.canSendPointsExpirationNotification %}
+    {% endif %}
+
+    {% set formAutoSubmitOptions = {
+        useAjax: true,
+        ajaxContainerSelector: '.points-expiration-unsubscribe-wrapper'
+    } %}
+
+    <form name="pointsUnsubscribe"
+          method="post"
+          action="{{ path("frontend.account.pointsExpirationNotification") }}"
+          data-form-auto-submit="true"
+          data-form-auto-submit-options='{{ formAutoSubmitOptions|json_encode }}'>
+
+        {% block custom_bonus_system_points_expiration_email_notification_subscribe_form_check_control %}
+            <div class="form-check">
+                <input type="checkbox"
+                       class="form-check-input"
+                       id="pointsUnsubscribe"
+                       name="option"
+                       autocomplete="off"
+                       value="subscribe"
+                       {% if canSendPointsExpirationNotification %}checked="checked"{% endif %}>
+                <label class="form-check-label custom-control-label"
+                       for="pointsUnsubscribe">
+                    {{ "custom-bonus-system.account.pointsAccount.pointsExpiration.notification.checkboxLabel"|trans|sw_sanitize }}
+                </label>
+            </div>
+        {% endblock %}
+    </form>
+{% endblock %}

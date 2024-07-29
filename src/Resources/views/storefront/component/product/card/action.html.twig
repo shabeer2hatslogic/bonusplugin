@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/component/product/card/action.html.twig' %}
+
+{% block component_product_box_action_buy %}
+    {# If product is only buyable with points don't show buy button in listing #}
+    {% if product.customBonusSystemPointCosts and context.customer and product.customBonusSystemOnlyBuyableWithPoints %}
+        {% block component_product_box_action_detail %}
+            <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
+               class="btn btn-block btn-light"
+               title="{{ "listing.boxProductDetails"|trans|striptags }}">
+                {{ "listing.boxProductDetails"|trans|sw_sanitize }}
+            </a>
+        {% endblock %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

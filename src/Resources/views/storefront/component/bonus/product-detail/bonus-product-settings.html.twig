@@ -1,0 +1,15 @@
+{% if page.customBonusSystemBonusProduct and page.customBonusSystemBonusProduct.onlyBuyableWithPoints %}
+    {% set onlyBuyableWithPoints = 1 %}
+{% else %}
+    {% set onlyBuyableWithPoints = 0 %}
+{% endif %}
+
+{% if page.customBonusSystemBonusProduct %}
+    {% set buyableWithPoints = 1 %}
+    {% set bonusPoints = page.customBonusSystemBonusProduct.value %}
+    {% set loggedIn = 1 %}
+{% else %}
+    {% set buyableWithPoints = 0 %}
+{% endif %}
+
+onlyBuyableWithPoints: {{ onlyBuyableWithPoints }} - buyableWithPoints: {{ buyableWithPoints }} - bonusPoints: {{ bonusPoints }}

@@ -1,0 +1,97 @@
+{% block custom_bonus_system_list %}
+<sw-page class="custom-bonus-system-customer">
+    {% block sw_customer_list_search_bar %}
+        <template #search-bar>
+            <sw-search-bar initialSearchType="customer"
+                           :initialSearch="term"
+                           @search="onSearch">
+            </sw-search-bar>
+        </template>
+    {% endblock %}
+
+    {% block custom_bonus_system_list_smart_bar_header %}
+        <template #smart-bar-header>
+            {% block custom_bonus_system_list_smart_bar_header_title %}
+                <h2>
+                    {% block custom_bonus_system_list_smart_bar_header_title_text %}
+                        {{ $tc('custom-bonus-system.list.userPoint.textOverview') }}
+                        {% endblock %}
+
+                        {% block custom_bonus_system_list_smart_bar_header_amount %}
+                        <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                        ({{ total }})
+                        </span>
+                    {% endblock %}
+                </h2>
+            {% endblock %}
+        </template>
+    {% endblock %}
+
+    <template #content>
+            {% block custom_bonus_system_list_content %}
+            <div class="sw-product-list__content">
+                {% block custom_bonus_system_component_navigation %}
+                    {% block custom_bonus_system_component_navigation %}
+                        <custom-bonus-system-navigation></custom-bonus-system-navigation>
+                    {% endblock %}
+                {% endblock %}
+
+                {% block custom_bonus_system_list_grid %}
+                    <custom-bonus-system-user-point-listing ref="customBonusSystemCustomerGrid"
+                                       class="sw-product-list-grid"
+                                       :items="customer"
+                                       :columns="columns"
+                                       :repository="repository"
+                                       :showSelection="false"
+                                       detailRoute="custom.bonus.system.customerdetail"
+                                       :allowDelete="false"
+                                       :showSettings="true"
+                                       :isLoading="isLoading"
+                                       >
+                        {% block custom_bonus_system_list_grid_columns %}
+                            {% block custom_bonus_system_list_grid_columns_customer_name %}
+                                <template slot="column-customer.firstName" slot-scope="{ item }">
+                                    {{ item.firstName }} {{ item.lastName }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_customer_email %}
+                                <template slot="column-customerEmail" slot-scope="{ item }">
+                                    {{ item.email }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_customer_number %}
+                                <template #column-customerNumber="{ item }">
+                                    {{ item.customerNumber }}
+                                </template>
+                            {% endblock %}
+                            {% block custom_bonus_system_list_grid_columns_points %}
+                                <template slot="column-points" slot-scope="{ item }">
+                                    {{ item.points }}
+                                </template>
+                            {% endblock %}
+                        {% endblock %}
+                    </custom-bonus-system-user-point-listing>
+                {% endblock %}
+
+                {% block custom_bonus_system_list_empty_state %}
+                    <sw-empty-state v-if="!isLoading && !total" :title="$tc('custom-bonus-system.list.messageEmpty')"></sw-empty-state>
+                {% endblock %}
+            </div>
+            {% endblock %}
+    </template>
+
+    {% block custom_bonus_system_list_sidebar %}
+        <template #sidebar>
+            <sw-sidebar>
+                {% block custom_bonus_system_list_sidebar_refresh %}
+                    <sw-sidebar-item
+                            icon="regular-undo"
+                            :title="$tc('custom-bonus-system.list.titleSidebarItemRefresh')"
+                            @click="onRefresh">
+                    </sw-sidebar-item>
+                {% endblock %}
+            </sw-sidebar>
+        </template>
+    {% endblock %}
+</sw-page>
+{% endblock %}

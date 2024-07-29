@@ -1,0 +1,169 @@
+{% block custom_bonus_system_dashboard %}
+    <sw-page class="custom-bonus-system-dashboard">
+        {% block custom_bonus_system_list_smart_bar_header %}
+            <template #smart-bar-header>
+                {% block custom_bonus_system_list_smart_bar_header_title %}
+                    <h2>
+                        {% block custom_bonus_system_list_smart_bar_header_title_text %}
+                            {{ $tc('custom-bonus-system.list.dashboard.textOverview') }}
+                        {% endblock %}
+                    </h2>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        <template #content>
+            {% block custom_bonus_system_list_content %}
+                <div class="sw-product-list__content">
+                    {% block custom_bonus_system_component_navigation %}
+                        {% block custom_bonus_system_component_navigation %}
+                            <custom-bonus-system-navigation></custom-bonus-system-navigation>
+                        {% endblock %}
+                    {% endblock %}
+
+                    {% block custom_bonus_system_dashboard_grid %}
+                        {% block custom_bonus_system_dashboard_sales_channels %}
+                            <sw-card :title="$tc('custom-bonus-system.list.dashboard.salesChannelsLabel')" :isLoading="salesChannelsIsLoading" :large="true">
+                                <template #header-right>
+                                    <sw-single-select
+                                        id="dashboard-filter"
+                                        size="medium"
+                                        :options="filterValues"
+                                        v-model="filterValue"
+                                        class="bonus-points-dashboard-filter-select"
+                                        @change="initSumPointsSalesChannels()">
+                                    </sw-single-select>
+                                </template>
+                                <sw-data-grid
+                                    showSettings="true"
+                                    allowColumnEdit="true"
+                                    :data-source="sumPointsSalesChannels"
+                                    :columns="salesChannelColumns"
+                                    :show-selection="false"
+                                    :is-loading="salesChannelsIsLoading"
+                                >
+                                    <template #preview-salesChannel.name="{ item }">
+                                        <sw-icon class="custom-bonus-system-dashboard__sales-channel-icon" :name="item.salesChannel.type.iconName" size="18px"/>
+                                    </template>
+                                    <template #column-salesChannel.name="{ item }">
+                                        {% block custom_bonus_system_dashboard_sum_sales_channels_detail %}
+                                            <router-link :to="{ name: 'sw.sales.channel.detail', params: { id: item.salesChannel.id } }">
+                                                {{ item.salesChannel.translated.name || item.salesChannel.name }}
+                                            </router-link>
+                                        {% endblock %}
+                                    </template>
+                                    <template #column-earned="{ item }">
+                                        {{ getPositiveValue(item.earned) }}
+                                    </template>
+                                    <template #column-spent="{ item }">
+                                        {{ getPositiveValue(item.spent) }}
+                                    </template>
+                                    <template #column-notApproved="{ item }">
+                                        {{ getPositiveValue(item.notApproved) }}
+                                    </template>
+                                    <template #column-credit="{ item }">
+                                        {{ getPositiveValue(item.credit) }}
+                                    </template>
+                                </sw-data-grid>
+                            </sw-card>
+                        {% endblock %}
+
+                        {% block custom_bonus_system_dashboard_customer_points %}
+                            <sw-container
+                            class="sw-container--large"
+                            columns="1fr 1fr"
+                            gap="0 20px"
+                        >
+                            {% block custom_bonus_system_dashboard_top_earned_points_customers %}
+                                <sw-card v-if="topEarnedPointsCustomers" :title="$tc('custom-bonus-system.list.dashboard.topEarnedPointsLabel')" :isLoading="isLoading" :large="true">
+                                    <template #header-right>
+                                        {% block custom_bonus_system_dashboard_top_earned_points_customers_all_customers_link %}
+                                            <router-link
+                                                    v-if="topEarnedPointsCustomers"
+                                                    :to="{ name: 'custom.bonus.system.customer' }"
+                                                    class="sw-card__quick-link"
+                                            >
+                                                {{ $tc('custom-bonus-system.list.dashboard.showAllLabel') }}
+                                            </router-link>
+                                        {% endblock %}
+                                    </template>
+                                    <sw-data-grid
+                                            showSettings="true"
+                                            allowColumnEdit="true"
+                                            :data-source="topEarnedPointsCustomers"
+                                            :columns="topEarnedPointsCustomersColumns"
+                                            :show-selection="false"
+                                            :is-loading="isLoading"
+                                    >
+                                        <template #preview-customer.firstName="{ item }">
+                                            <sw-avatar
+                                                    :size="'32px'"
+                                                    :source-context="item.customer"
+                                                    :first-name="item.customer.firstName"
+                                                    :last-name="item.customer.lastName"
+                                            />
+                                        </template>
+                                        <template #column-customer.firstName="{ item }">
+                                            {% block custom_bonus_system_dashboard_top_earned_points_customer_detail %}
+                                                <router-link :to="{ name: 'custom.bonus.system.customerdetail', params: { id: item.customer.id }, query: { edit: false } }">
+                                                    {{ item.customer.firstName }} {{ item.customer.lastName }}
+                                                </router-link>
+                                            {% endblock %}
+                                        </template>
+                                        <template #column-earned="{ item }">
+                                            {{ item.earned }}
+                                        </template>
+                                        <template #column-spent="{ item }">
+                                            {{ getPositiveValue(item.spent) }}
+                                        </template>
+                                    </sw-data-grid>
+                                </sw-card>
+                            {% endblock %}
+                            {% block custom_bonus_system_dashboard_top_credit_points_customers %}
+                                <sw-card v-if="topCreditPointsCustomers" :title="$tc('custom-bonus-system.list.dashboard.topCreditPointsLabel')" :isLoading="isLoading" :large="true">
+                                    <template #header-right>
+                                        <router-link
+                                                v-if="topCreditPointsCustomers"
+                                                :to="{ name: 'custom.bonus.system.customer' }"
+                                                class="sw-card__quick-link"
+                                        >
+                                            {{ $tc('custom-bonus-system.list.dashboard.showAllLabel') }}
+                                        </router-link>
+                                    </template>
+                                    <sw-data-grid
+                                            showSettings="true"
+                                            allowColumnEdit="true"
+                                            :data-source="topCreditPointsCustomers"
+                                            :columns="topCreditPointsCustomersColumns"
+                                            :show-selection="false"
+                                            :is-loading="isLoading"
+                                    >
+                                        <template #preview-customer.firstName="{ item }">
+                                            <sw-avatar
+                                                    :size="'32px'"
+                                                    :source-context="item.customer"
+                                                    :first-name="item.customer.firstName"
+                                                    :last-name="item.customer.lastName"
+                                            />
+                                        </template>
+                                        <template #column-customer.firstName="{ item }">
+                                            {% block custom_bonus_system_dashboard_top_credit_points_customer_detail %}
+                                                <router-link :to="{ name: 'custom.bonus.system.customerdetail', params: { id: item.customer.id }, query: { edit: false } }">
+                                                    {{ item.customer.firstName }} {{ item.customer.lastName }}
+                                                </router-link>
+                                            {% endblock %}
+                                        </template>
+                                        <template #column-points="{ item }">
+                                            {{ item.points }}
+                                        </template>
+                                    </sw-data-grid>
+                                </sw-card>
+                            {% endblock %}
+                        </sw-container>
+                        {% endblock %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}

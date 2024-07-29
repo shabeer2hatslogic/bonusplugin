@@ -1,0 +1,38 @@
+.custom-bonus-system {
+    &-dashboard {
+
+        &__sales-channel-icon {
+            margin-right: 15px;
+        }
+
+        .sw-card {
+
+            &__titles-right-slot {
+                .bonus-points-dashboard-filter-select {
+                    min-width: 163px;
+                }
+            }
+
+            &__content {
+                padding: unset;
+                overflow: hidden;
+            }
+
+            // Hide actions button
+            .sw-data-grid {
+                &__actions-menu {
+                    .sw-context-button__button {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .sw-container {
+            &--large {
+                max-width: 1330px;
+                margin: 0 auto;
+            }
+        }
+    }
+}

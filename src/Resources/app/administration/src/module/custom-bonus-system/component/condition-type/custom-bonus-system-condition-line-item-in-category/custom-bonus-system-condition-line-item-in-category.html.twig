@@ -1,0 +1,13 @@
+{% block sw_condition_value_content %}
+    <div class="sw-condition-line-item-in-category sw-condition__condition-value">
+        {% block sw_condition_line_item_in_category_field_identifiers %}
+            <sw-entity-multi-select
+                :label="$tc('custom-bonus-system.detail.main.condition.cardTitleConditionRule.labelConditionRuleCategory')"
+                size="medium"
+                entity="category"
+                :entityCollection="categories"
+                @change="setCategoryIds">
+            </sw-entity-multi-select>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% sw_extends '@Framework/documents/invoice.html.twig' %}
+
+{% block document_head %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .bonus-point-get-value {
+            text-align: right;
+            color: #3cc261;
+        }
+        .bonus-point-redeem-value {
+            text-align: right;
+            color: #e52427;
+        }
+    </style>
+{% endblock %}
+{% block document_sum_total %}
+    {{ parent() }}
+    {% if config('CustomBonusSystem.config.showPointsInInvoice') %}
+        {% if extensions.customBonusSystem %}
+            {% if extensions.customBonusSystem.get > 0 %}
+                {% block document_custom_bonus_system_points_get_container %}
+                    <tr>
+                        {% block document_custom_bonus_system_points_get_label %}
+                            <td class="align-right">{{ 'custom-bonus-system.checkout.points'|trans }}</td>
+                        {% endblock %}
+
+                        {% block document_custom_bonus_system_points_get_price %}
+                            <td>
+                                <div class="bonus-point-get-value">
+                                    +{{ extensions.customBonusSystem.get }}
+                                </div>
+                            </td>
+                        {% endblock %}
+                    </tr>
+                {% endblock %}
+            {% endif %}
+            {% if extensions.customBonusSystem.redeemed < 0 %}
+                {% block document_custom_bonus_system_points_redeemed_container %}
+                    <tr>
+                        {% block document_custom_bonus_system_points_redeemed_label %}
+                            <td class="align-right">{{ 'custom-bonus-system.checkout.summaryPointsRedeemed'|trans }}</td>
+                        {% endblock %}
+
+                        {% block document_custom_bonus_system_points_redeemed_price %}
+                            <td>
+                                <div class="bonus-point-redeem-value">
+                                    -{{ extensions.customBonusSystem.redeemed }}
+                                </div>
+                            </td>
+                        {% endblock %}
+                    </tr>
+                {% endblock %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

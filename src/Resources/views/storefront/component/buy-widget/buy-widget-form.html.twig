@@ -1,0 +1,55 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget-form.html.twig' %}
+
+{% if page.product.customBonusSystemBonusProduct and page.product.customBonusSystemOnlyBuyableWithPoints %}
+        {% set onlyBuyableWithPoints = 1 %}
+{% else %}
+        {% set onlyBuyableWithPoints = 0 %}
+{% endif %}
+
+{% if page.customBonusSystemBonusProduct %}
+        {% set buyableWithPoints = 1 %}
+        {% set bonusPoints = page.product.customBonusSystemPointCosts %}
+        {% if context.customer %}
+                {% set loggedIn = 1 %}
+        {% endif %}
+{% else %}
+        {% set buyableWithPoints = 0 %}
+{% endif %}
+
+{% block buy_widget_buy_form_action %}
+        {% if bonusPoints and loggedIn == 1 %}
+                {{ path('frontend.checkout.custom-bonus-system.product.add') }}
+        {% else %}
+                {{ parent() }}
+        {% endif %}
+{% endblock %}
+
+{% block buy_widget_buy_container %}
+        {% if bonusPoints and loggedIn == 1 %}
+                <div class="bonus-system-points-container">
+                        {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+                        <div class="bonus-text">
+                                {% if onlyBuyableWithPoints == 1 %}
+                                        <input type="hidden" name="lineItems[{{ page.product.id }}][payload][buyWithPoints]" value="1" />{{ "custom-bonus-system.productDetails.buyWithNumberPoints"|trans({'%points%': bonusPoints}) }}
+                                {% else %}
+                                        <input type="checkbox" name="lineItems[{{ page.product.id }}][payload][buyWithPoints]" value="1" />{{ "custom-bonus-system.productDetails.buyWithNumberPoints"|trans({'%points%': bonusPoints}) }}
+                                {% endif %}
+                        </div>
+                        <div class="clearfix"></div>
+                </div>
+        {% endif %}
+
+        {% if onlyBuyableWithPoints == 1 and loggedIn == 0 %}
+                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                        type:"info",
+                        content:"custom-bonus-system.productDetails.loginToBuyWithPointsOnly"|trans
+                } %}
+        {% elseif buyableWithPoints == 1 and loggedIn == 0 %}
+                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                        type:"info",
+                        content:"custom-bonus-system.productDetails.loginToBuyWithPoints"|trans
+                } %}
+        {% else %}
+                {{ parent() }}
+        {% endif %}
+{% endblock %}

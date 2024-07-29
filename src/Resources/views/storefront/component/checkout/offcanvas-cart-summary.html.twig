@@ -1,0 +1,41 @@
+{% sw_extends '@Storefront/storefront/component/checkout/offcanvas-cart-summary.html.twig' %}
+{% set customBonusSystem = page.extensions.customBonusSystem %}
+
+{% block component_offcanvas_summary_tax_info %}
+    {% block component_offcanvas_bonus_point_get %}
+        {% if page.customBonusSystemPoints.get > 0 %}
+            <div class="row offcanvas-bonus-point-get">
+                {% block component_offcanvas_bonus_point_get_label %}
+                    <span class="col-7 offcanvas-bonus-point-get-label">
+                        <strong>{{ "custom-bonus-system.checkout.summaryGetPoints"|trans }}</strong>
+                    </span>
+                {% endblock %}
+
+                {% block component_offcanvas_bonus_point_get_value %}
+                    <span class="col-5 offcanvas-bonus-point-get-value">
+                        +{{ page.customBonusSystemPoints.get }} {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+                    </span>
+                {% endblock %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block component_offcanvast_bonus_point_redeem %}
+        {% if page.customBonusSystemPoints.wantToRedeem > 0 %}
+            <div class="row offcanvas-bonus-point-redeem">
+                {% block page_checkout_bonus_point_redeem_label %}
+                    <span class="col-7 offcanvas-bonus-point-redeem-label">
+                        <strong>{{ "custom-bonus-system.checkout.redeemPointsAction"|trans }}</strong>
+                    </span>
+                {% endblock %}
+
+                {% block component_offcanvas_bonus_point_redeem_value %}
+                    <span class="col-5 offcanvas-bonus-point-redeem-value">
+                        -{{ page.customBonusSystemPoints.wantToRedeem }} {% sw_include '@Storefront/storefront/component/bonus/bonus-brand.html.twig' %}
+                    </span>
+                {% endblock %}
+            </div>
+        {% endif %}
+
+    {% endblock %}
+    {{ parent() }}
+{% endblock %}

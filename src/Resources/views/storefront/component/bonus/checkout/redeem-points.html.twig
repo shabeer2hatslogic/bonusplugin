@@ -1,0 +1,63 @@
+{% if (totalPrice > 0 and maxRedeemPoints > 0) or wantToRedeemBasketDiscountType > 0 or wantToRedeemBonusProductDiscountType %}
+    <div class="col-12">
+        <div class="bonus-system-redeem-points-container bonuspoint-redeem-slider">
+            <div class="bonus-text {% if wantToRedeemBasketDiscountType > 0 %} want-to-redeem{% else %}only-bonus-product-redeem{% endif %}">
+                
+                    {% if totalPrice > 0 and maxRedeemPoints > 0 %}
+                        {% if totalPrice > 0 %}
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <div>{{ "custom-bonus-system.checkout.youHaveText"|trans({'%points%': points}) }}</div>
+                            </div>
+                        {% endif %}
+
+                        <form method="post" action="{{ path('frontend.CustomBonusSystem.redeemPoints') }}">
+                            {% block component_bonus_redeem_points_redirect_input %}
+                                {% if redirectDestination %}
+                                    <input type="hidden"
+                                            name="redirectTo"
+                                            value="{{ redirectDestination }}"/>
+                                {% else %}
+                                    <input type="hidden"
+                                            name="redirectTo"
+                                            value="frontend.checkout.cart.page"/>
+                                {% endif %}
+                            {% endblock %}
+
+                            <input type="hidden" id="bonus--voucher-value" name="value" value="" readonly="readonly"/>
+                            <input type="hidden" id="bonus--conversion-factor" value="{{ bonusSystemConversionFactorCurrencyRedeem }}"/>
+
+                            {% if totalPrice > 0 and maxRedeemPoints > 0 %}
+                                <div class="bonus-slider-container">
+                                    <div id="bonus-slider"
+                                            data-addVoucherText="test"
+                                            data-range-min="0"
+                                            data-range-max="{{ maxRedeemPoints }}"
+                                            data-basket-slider="true"
+                                            data-currency="{{ context.currency.shortName }}">
+                                    </div>
+
+                                    <div id="bonus-slider-conversion-status">
+                                        {{ factorFor1Amount }}P= {{ oneAmount|currency }}
+                                    </div>
+                                    <input type="hidden" id="bonus-slider-points" name="bonuspoints" value="0" readonly="readonly"/>
+                                </div>
+                            {% endif %}
+
+                            {% if wantToRedeemBonusProductDiscountType %}
+                                {{ "custom-bonus-system.checkout.wantToRedeemBonusProductPointsText"|trans({'%points%': wantToRedeemBonusProductDiscountType}) }}
+                            {% endif %}
+
+                            {% if totalPrice > 0 and maxRedeemPoints > 0 %}
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-outline-warning btn-redeem-points invisible">{{ "custom-bonus-system.checkout.redeemPointsAction"|trans }}<span id="point-display-output"></span></button>
+                                </div>
+                            {% endif %}
+                        </form>
+                    {% elseif wantToRedeemBonusProductDiscountType %}
+                        {{ "custom-bonus-system.checkout.wantToRedeemBonusProductPointsText"|trans({'%points%': wantToRedeemBonusProductDiscountType}) }}
+                    {% endif %}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endif %}

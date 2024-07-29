@@ -1,0 +1,16 @@
+<div style="font-family:arial; font-size:12px;">
+<p>Hello {{ customer.salutation ? customer.salutation.letterName : '' }} {{ customer.firstName }} {{ customer.lastName }},
+<br><br>
+{{ numberPointsExpire }} bonus points expire in {{ days }} days. You have a total point balance of {{ numberPoints }}.
+Visit our shop now and use the point voucher for your next order.
+<br><br>
+You can see your current point balance at our shop on "My account" area: {{ rawUrl('frontend.account.home.page', {}, salesChannel.domains|first.url) }}
+<br>
+If you have any questions, do not hesitate to contact us.
+</p>
+<br><br>
+Best regards<br>
+Your team from {{ salesChannel.name }}
+<br><br>
+If you don't want to receive this e-mail any longer you can unsubscribe at: {{ rawUrl('frontend.CustomBonusSystem.index', {}, salesChannel.domains|first.url) }}
+</div>

@@ -1,0 +1,7 @@
+{% block sw_data_grid_bulk_selected_actions_content %}
+    <a class="link link-danger" @click="approveItems()">
+        {{ $tc('custom-bonus-system.list.booking.approve') }}
+    </a>
+    {% parent %}
+{% endblock %}
+
